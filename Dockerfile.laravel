@@ -6,8 +6,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY beer-app/composer.json beer-app/composer.lock .
+COPY beer-app/composer.json beer-app/composer.lock ./
 
-RUN composer install --no-scripts --no-autoloader
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

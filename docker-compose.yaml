@@ -1,4 +1,3 @@
-version: "3"
 services:
   web:
     build:
@@ -19,6 +18,8 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: ObWjtqJS!j5B7A3
+      POSTGRES_USER: postgres
+      POSTGRES_DB: beer_app
     ports:
       - 5432:5432
     volumes:
