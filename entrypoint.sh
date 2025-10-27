@@ -22,8 +22,9 @@ if ! grep -q "^APP_KEY=" .env || [ -z "$(grep '^APP_KEY=' .env | cut -d'=' -f2)"
 	php artisan key:generate
 fi
 
-# Run migrations if database is empty
+# Run database migrations
 echo "[INFO] Running database migrations..."
-php artisan migrate
+php artisan migrate:fresh
+php artisan db:seed
 
 exec php artisan serve --host=0.0.0.0 --port=8000
