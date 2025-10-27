@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
-@section('title', 'Settings')
-
-@section('content')
+<x-app>
+    <x-navigation-bar></x-navigation-bar>
+    
     <h1>Will you change from light mode to dark mode? (Yes/Yes)</h1>
-@endsection
+
+</x-app>

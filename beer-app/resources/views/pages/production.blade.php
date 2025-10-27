@@ -1,7 +1,6 @@
-@extends('layouts.app')
+<x-app>
+    <x-navigation-bar></x-navigation-bar>
+    
+    <h1>Beer brewing</h1>
 
-@section('title', 'Production')
-
-@section('content')
-    <h1>Beer Brewing</h1>
-@endsection
+</x-app>

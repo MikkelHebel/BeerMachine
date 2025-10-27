@@ -1,7 +1,6 @@
-@extends('layouts.app')
+<x-app>
+    <x-navigation-bar></x-navigation-bar>
 
-@section('title', 'Statistics')
-
-@section('content')
     <h1>Oh no there has been a data leakage!!!</h1>
-@endsection
+
+</x-app>
