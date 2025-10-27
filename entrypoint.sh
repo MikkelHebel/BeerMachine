@@ -24,6 +24,7 @@ fi
 
 # Run migrations if database is empty
 echo "[INFO] Running database migrations..."
-php artisan migrate:fresh # 
+php artisan migrate:fresh
+php artisan db:seed
 
 exec php artisan serve --host=0.0.0.0 --port=8000
