@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Type extends Model
 {
-    protected $fillable = ['username', 'password', 'is_admin']; // password needs to be hashed in the seeder
+    protected $fillable = ['name'];
+    public $timestamps = false; // the beer types doesnt need timestamps
 
     public function batches() {
         return $this->hasMany(Batch::class);
