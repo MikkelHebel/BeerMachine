@@ -10,9 +10,12 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::insert([
-            ['username' => 'admin', 'password' => Hash::make('admin123'), 'is_admin' => true],
-            ['username' => 'brewer1', 'password' => Hash::make('beer123'), 'is_admin' => false],
-        ]);
+        $admins = [true, false];
+
+        foreach ($admins as $admin) {
+            User::factory()->create([
+                'is_admin' => $admin
+            ]);
+        }
     }
 }

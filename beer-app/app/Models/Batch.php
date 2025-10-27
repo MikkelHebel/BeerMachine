@@ -3,20 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Batch extends Model
 {
-    protected $fillable = ['amount', 'failed', 'user_id', 'type_id'];
+    /** @use HasFactory<\Database\Factories\BatchFactory> */
+    use HasFactory;
 
-    public function user() {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = ['amount', 'failed', 'amount_completed', 'started_at', 'completed_at', 'user_id', 'type_id'];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function type() {
+    public function type()
+    {
         return $this->belongsTo(Type::class);
     }
 
-    public function times() {
+    public function times()
+    {
         return $this->hasMany(Time::class);
     }
 }

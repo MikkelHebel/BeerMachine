@@ -9,13 +9,13 @@ class TypeSeeder extends Seeder
 {
     public function run(): void
     {
-        Type::insert([
-            ['name' => 'Pilsner'],
-            ['name' => 'Wheat'],
-            ['name' => 'IPA'],
-            ['name' => 'Stout'],
-            ['name' => 'Ale'],
-            ['name' => 'Alcohol-Free'],
-        ]);
+        $types = ['Pilsner', 'Wheat', 'IPA', 'Stout', 'Ale', 'Alcohol-Free'];
+
+        // for each of the types we set the name of a type to the type
+        foreach ($types as $type) {
+            Type::factory()->create(
+                ['name' => $type]
+            );
+        }
     }
 }
