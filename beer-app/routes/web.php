@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/', [PageController::class, 'production'])->name('production');
-Route::get('/', [PageController::class, 'status'])->name('status');
-Route::get('/', [PageController::class, 'statistics'])->name('statistics');
-Route::get('/', [PageController::class, 'admin'])->name('admin');
-Route::get('/', [PageController::class, 'settings'])->name('settings');
+Route::get('/production', [PageController::class, 'production'])->name('production');
+Route::get('/status', [PageController::class, 'status'])->name('status');
+Route::get('/statistics', [PageController::class, 'statistics'])->name('statistics');
+Route::get('/admin', [PageController::class, 'admin'])->name('admin');
+Route::get('/settings', [PageController::class, 'settings'])->name('settings');
