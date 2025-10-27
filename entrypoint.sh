@@ -16,6 +16,14 @@ if [ ! -f vendor/autoload.php ]; then
 	composer install --no-interaction --optimize-autoloader
 fi
 
+# Install Node.js dependencies if missing
+if [ ! -d node_modules ]; then
+	echo "[INFO] Node modules missing, installing them now..."
+	npm install
+	echo "[INFO] Building assets..."
+	npm run build
+fi
+
 # Generate app key if missing
 if ! grep -q "^APP_KEY=" .env || [ -z "$(grep '^APP_KEY=' .env | cut -d'=' -f2)" ]; then
 	echo "[INFO] App key missing, generating app key..."
