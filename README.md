@@ -32,9 +32,15 @@ Hvis du laver ændringer i `.env`, skal du genstarte web-containeren:
 docker compose restart web
 ```
 
+For at få shell på en container:
+```bash
+docker compose exec db bash
+```
+
 > [!TIP]
 > `entrypoint.sh` skriptet håndterer automatisk:
 > - Opretter .env hvis den mangler
-> - Composer dependicies (`composer install`)
+> - Composer dependencies (`composer install`)
+> - Installere node dependencies (`npm install` & `npm run build`)
 > - Generering af APP_KEY (`php artisan key:generate`)
 > - Database migrations (`php artisan migrate --force`)
