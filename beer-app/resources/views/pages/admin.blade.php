@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
-@section('title', 'Admin')
-
-@section('content')
+<x-app>
+    <x-navigation-bar></x-navigation-bar>
+    
     <h1>Admin's page</h1>
-@endsection
+
+</x-app>

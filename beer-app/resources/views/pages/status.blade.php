@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
-@section('title', 'Status')
-
-@section('content')
+<x-app>
+    <x-navigation-bar></x-navigation-bar>
+    
     <h1>Your pokemon has been paralyzed... (it has a status condition)</h1>
-@endsection
+
+</x-app>
