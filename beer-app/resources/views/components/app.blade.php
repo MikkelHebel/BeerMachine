@@ -3,12 +3,13 @@
 
     <head>
         <meta charset="utc-8">
-        <title>@yield('title', 'Beer Machine')</title>
+        <title>Beer Machine</title>
+        @vite('resources/css/app.css')
 
     </head>
     
     <body>
-        <main>
+        <main class="container">
             {{ $slot }}
         </main>
     </body>
