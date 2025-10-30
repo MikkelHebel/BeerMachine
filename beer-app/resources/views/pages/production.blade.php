@@ -1,6 +1,5 @@
 <x-app>
-    <x-navigation-bar></x-navigation-bar>
-    
+
     <form>
             <select>
                 <option>Pilsner</option>

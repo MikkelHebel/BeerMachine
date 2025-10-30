@@ -37,6 +37,11 @@ For at få shell på en container:
 docker compose exec db bash
 ```
 
+For at fixe når db har problemer med volume:
+```bash
+docker compose down -v
+```
+
 > [!TIP]
 > `entrypoint.sh` skriptet håndterer automatisk:
 > - Opretter .env hvis den mangler
