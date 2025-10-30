@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between px-6 py-7 bg-[#FFCF4B]">
+<nav class="flex items-center justify-between px-6 py-7 bg-[#FFCF4B] w-screen">
 
     <a href="{{ route('home') }}">
         <img src="{{ asset('images/nedenunder-logo.png') }}" alt="Nedenunder Logo" class="h-8 w-auto">
