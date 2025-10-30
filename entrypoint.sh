@@ -31,6 +31,7 @@ if ! grep -q "^APP_KEY=" .env || [ -z "$(grep '^APP_KEY=' .env | cut -d'=' -f2)"
 fi
 
 # build vite related things
+echo "[INFO] Building npm dependencies"
 npm run build
 
 # Run database migrations
