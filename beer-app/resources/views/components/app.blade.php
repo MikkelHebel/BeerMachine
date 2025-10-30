@@ -7,12 +7,12 @@
         @vite('resources/css/app.css')
         <link rel="icon" type="image/x-icon" href="{{ asset('nedenunder-favicon.ico') }}">
 
-    </head>
-    
-    <body>
-        <main class="container">
-            {{ $slot }}
-        </main>
-    </body>
+</head>
+
+<body>
+    <main>
+        {{ $slot }}
+    </main>
+</body>
 
 </html>
