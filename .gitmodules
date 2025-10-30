@@ -1,3 +1,4 @@
 [submodule "BeerMachineApi"]
 	path = BeerMachineApi
 	url = https://github.com/GustavSkou/BeerMachineApi
+	branch = main
