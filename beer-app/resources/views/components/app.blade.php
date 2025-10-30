@@ -5,6 +5,7 @@
         <meta charset="utc-8">
         <title>Beer Machine</title>
         @vite('resources/css/app.css')
+        <link rel="icon" type="image/x-icon" href="{{ asset('nedenunder-favicon.ico') }}">
 
     </head>
     
