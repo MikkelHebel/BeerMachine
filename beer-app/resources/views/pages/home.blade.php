@@ -1,6 +1,5 @@
 <x-app>
     @vite(['resources/css/home.css'])
-    
     <x-navigation-bar></x-navigation-bar>
 
     <div>
