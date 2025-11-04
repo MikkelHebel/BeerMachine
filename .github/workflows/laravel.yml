@@ -1,0 +1,66 @@
+name: Laravel CI with Docker
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    # Starter PostgreSQL-service, der kan tilgås via 127.0.0.1:5432
+    services:
+      db:
+        image: postgres:18.0 
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
+          POSTGRES_USER: postgres
+          POSTGRES_DB: beer_app
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: beer-app 
+
+      - name: Build Laravel Docker Image
+        run: docker build -t laravel-app -f beer-app/Dockerfile.laravel beer-app
+
+      - name: Prepare Files
+        run: |
+          cp beer-app/.env.example beer-app/.env
+          chmod -R 777 beer-app/storage beer-app/bootstrap/cache
+          
+      - name: Install Composer Dependencies
+        run: |
+          docker run --rm -v ${{ github.workspace }}/beer-app:/var/www/html --network host \
+            -e POSTGRES_HOST=127.0.0.1 -e POSTGRES_PORT=5432 \
+            laravel-app composer install -q --no-interaction --prefer-dist
+            
+      - name: Setup Database and Run Migrations
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: beer_app
+          DB_USERNAME: postgres
+          DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
+        run: |
+          docker run --rm -v ${{ github.workspace }}/beer-app:/var/www/html \
+            ${{ env }} \
+            laravel-app php artisan key:generate
+          
+          docker run --rm -v ${{ github.workspace }}/beer-app:/var/www/html \
+            ${{ env }} \
+            laravel-app php artisan migrate --force
+      - name: Execute tests (PHPUnit/Pest)
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: db
+          DB_PORT: 5432
+          DB_DATABASE: beer_app
+          DB_USERNAME: postgres
+          DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
+        run: |
+          docker run --rm -v ${{ github.workspace }}/beer-app:/var/www/html --network host \
+            ${{ env }} \
+            laravel-app php artisan test
