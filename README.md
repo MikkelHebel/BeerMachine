@@ -1,9 +1,6 @@
 # BeerMachine
 > [!IMPORTANT]
-> Husk at opdater `.env` fil i /beer-app
-> `DB_HOST=db`
-> `DB_USERNAME=postgres`
-> `DB_PASSWORD=` står i docker-compose.yaml filen
+> Husk at opdater `DB_PASSWORD=` i `.env` fil i /beer-app
 
 ## Setup
 **Byg Docker containerne:**
@@ -48,4 +45,4 @@ docker compose down -v
 > - Composer dependencies (`composer install`)
 > - Installere node dependencies (`npm install` & `npm run build`)
 > - Generering af APP_KEY (`php artisan key:generate`)
-> - Database migrations (`php artisan migrate --force`)
+> - Database migrations og seeding af databasen (`php artisan migrate` & `php artisan db:seed`)
