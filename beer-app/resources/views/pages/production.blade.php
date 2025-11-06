@@ -1,4 +1,14 @@
 <x-app>
+
+    <form>
+            <select>
+                <option>Pilsner</option>
+                <option>IPA</option>
+                <option>Stout</option>
+                <option>Ale</option>
+                <option>Alcohol Free</option>
+            </select>
+        </div>
     <x-navigation-bar></x-navigation-bar>
     
     <div class="flex justify-center items-center h-screen">
