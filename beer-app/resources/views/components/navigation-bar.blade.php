@@ -1,3 +1,5 @@
+@vite('resources/css/navigation-bar.css')
+
 <nav class="navbar">
     <a href="{{ route('home') }}" class="navbar-logo">
         <img src="{{ asset('images/nedenunder-logo.png') }}" alt="Nedenunder Logo">
