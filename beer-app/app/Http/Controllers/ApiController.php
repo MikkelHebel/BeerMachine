@@ -2,54 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ApiController extends Controller
 {
     public function BatchStatus(Request $request)
     {
-        $batchStatus = [
-            'batchId' => 1,
-            'beerType' => 1,
-            'speed' => 450,
-            'toProduceAmount' => 250,
-            'producedAmount' => 125,
-            'defectiveAmount' => 23,
-            'userId' => 1,
-            'failureRate' => 125 / 23.0,
-        ];
-        return response()->json($batchStatus);
+        try {
+            return $this->HttpGetStatus("batch");
+        } catch (\Exception $e) {
+            // If we dont get a response return a mock json for testings, if the api project is not running
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'batchId' => 1,
+                'beerType' => 1,
+                'speed' => 450,
+                'toProduceAmount' => 250,
+                'producedAmount' => 125,
+                'defectiveAmount' => 23,
+                'userId' => 1,
+                'failureRate' => 125 / 23.0,
+            ]);
+        }
     }
 
     public function MachineStatus(Request $request)
     {
-        $machineStatus = [
-            'Speed' => 450,
-            'Ctrlcmd' => 0,
-            'Temperature' => 31,
-            'Vibration' => 3,
-            'Humidity' => 10,
-            'StopReason' => 0,
-        ];
-        return response()->json($machineStatus);
+        try {
+            return $this->HttpGetStatus("machine");
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'Speed' => 450,
+                'Ctrlcmd' => 0,
+                'Temperature' => 31,
+                'Vibration' => 3,
+                'Humidity' => 10,
+                'StopReason' => 0,
+            ]);
+        }
     }
 
     public function InventoryStatus(Request $request)
     {
-        // max 35000
-        $inventoryStatus = [
-            'Barley' => 33200,
-            'Hops' => 32000,
-            'Malt' => 23750,
-            'Wheat' => 30000,
-            'Yeast' => 20000,
-            'FillingInventory' => false,
-        ];
-        return response()->json($inventoryStatus);
+        try {
+            return $this->HttpGetStatus("inventory");
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'Barley' => 33200,
+                'Hops' => 32000,
+                'Malt' => 23750,
+                'Wheat' => 30000,
+                'Yeast' => 20000,
+                'FillingInventory' => false,
+            ]);
+        }
     }
 
-    public function MainStatus(Request $request)
+    private function HttpGetStatus(string $status)
     {
-        return response()->json([]);
+        // Call the BeerMachineApi running on host machine
+        $beerMachineApiBaseUrl = config('app.beermachine_api');
+        $endPoint = "/status/$status";
+
+        $response = Http::timeout(5)->get("{$beerMachineApiBaseUrl}{$endPoint}");
+
+        if ($response->successful()) {
+            return response()->json($response->json());
+        } else {
+            throw new Exception("response failed");
+        }
     }
 }
