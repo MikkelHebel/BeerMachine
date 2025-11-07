@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/app.css', 
                 'resources/js/app.js',
                 'resources/css/navigation-bar.css'],
+                'resources/css/home.css',
             refresh: true,
         }),
         tailwindcss(),
