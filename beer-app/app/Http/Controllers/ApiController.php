@@ -113,7 +113,7 @@ class ApiController extends Controller
     {
         // Call the BeerMachineApi running on host machine
         $beerMachineApiBaseUrl = config('app.beermachine_api');
-        $endPoint = "/command";
+        $endPoint = "/machine/command";
 
         $response = Http::timeout(5)->post("{$beerMachineApiBaseUrl}{$endPoint}", $data);
 
@@ -122,15 +122,5 @@ class ApiController extends Controller
         } else {
             throw new Exception("Command request failed with status: " . $response->status());
         }
-    }
-
-    public function TestPost()
-    {
-        $beerMachineApiBaseUrl = config('app.beermachine_api');
-        $endPoint = "/command";
-
-        $response = Http::post("{$beerMachineApiBaseUrl}{$endPoint}", [
-            "Type" => "stop"
-        ]);
     }
 }
