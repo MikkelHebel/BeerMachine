@@ -67,16 +67,60 @@ class ApiController extends Controller
 
     private function HttpGetStatus(string $status)
     {
-        // Call the BeerMachineApi running on host machine
         $beerMachineApiBaseUrl = config('app.beermachine_api');
         $endPoint = "/status/$status";
 
         $response = Http::timeout(5)->get("{$beerMachineApiBaseUrl}{$endPoint}");
 
         if ($response->successful()) {
-            return response()->json($response->json());
+            return response()->json($response->json()); //200
+        } elseif ($response->clientError()) {
+            return response()->json($response->json()); //400
+        } elseif ($response->serverError()) {
+            return response()->json($response->json()); //500
         } else {
             throw new Exception("response failed");
+        }
+    }
+
+    public function SendCommand(Request $request)
+    {
+        try {
+            // Validate required fields
+            $validated = $request->validate([
+                'type' => 'required|string|max:255',
+                'parameters' => 'sometimes|array' // Optional parameters (batch)
+            ]);
+
+            $commandData = [
+                'Type' => $validated['type']
+            ];
+
+            if (isset($validated['parameters'])) {
+                $commandData['Parameters'] = $validated['parameters'];
+            }
+
+            return $this->HttpPostCommand($commandData);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    private function HttpPostCommand(array $data)
+    {
+        // Call the BeerMachineApi running on host machine
+        $beerMachineApiBaseUrl = config('app.beermachine_api');
+        $endPoint = "/machine/command";
+
+        $response = Http::timeout(5)->post("{$beerMachineApiBaseUrl}{$endPoint}", $data);
+
+        if ($response->successful()) {
+            return response()->json($response->json());
+        } else {
+            throw new Exception("Command request failed with status: " . $response->status());
         }
     }
 }
