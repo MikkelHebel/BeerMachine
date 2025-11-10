@@ -1,9 +1,6 @@
 # BeerMachine
 > [!IMPORTANT]
-> Husk at opdater `.env` fil i /beer-app
-> `DB_HOST=db`
-> `DB_USERNAME=postgres`
-> `DB_PASSWORD=` står i docker-compose.yaml filen
+> Husk at opdater `DB_PASSWORD=` i `.env` fil i /beer-app
 
 ## Setup
 **Byg Docker containerne:**
@@ -37,10 +34,15 @@ For at få shell på en container:
 docker compose exec db bash
 ```
 
+For at fixe når db har problemer med volume:
+```bash
+docker compose down -v
+```
+
 > [!TIP]
 > `entrypoint.sh` skriptet håndterer automatisk:
 > - Opretter .env hvis den mangler
 > - Composer dependencies (`composer install`)
 > - Installere node dependencies (`npm install` & `npm run build`)
 > - Generering af APP_KEY (`php artisan key:generate`)
-> - Database migrations (`php artisan migrate --force`)
+> - Database migrations og seeding af databasen (`php artisan migrate` & `php artisan db:seed`)

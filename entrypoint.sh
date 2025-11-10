@@ -5,33 +5,31 @@ cd /var/www/html
 
 # Check if .env is missing
 if [ ! -f .env ]; then
-	echo "[INFO] .env missing creating .env file..."
-	cp .env.example .env
-	chmod 666 .env
+  echo "[INFO] .env missing creating .env file..."
+  cp .env.example .env
+  chmod 666 .env
 fi
 
 # Install dependencies if missing
 if [ ! -f vendor/autoload.php ]; then
-	echo "[INFO] Dependencies missing installing them now..."
-	composer install --no-interaction --optimize-autoloader
+  echo "[INFO] Dependencies missing installing them now..."
+  composer install --no-interaction --optimize-autoloader
 fi
 
 # Install Node.js dependencies if missing
 if [ ! -d node_modules ]; then
-	echo "[INFO] Node modules missing, installing them now..."
-	npm install
-	echo "[INFO] Building assets..."
-	npm run build
+  echo "[INFO] Node modules missing, installing them now..."
+  npm install
 fi
 
 # Generate app key if missing
 if ! grep -q "^APP_KEY=" .env || [ -z "$(grep '^APP_KEY=' .env | cut -d'=' -f2)" ]; then
-	echo "[INFO] App key missing, generating app key..."
-	php artisan key:generate
+  echo "[INFO] App key missing, generating app key..."
+  php artisan key:generate
 fi
 
-# build vite related things
-echo "[INFO] Building npm dependencies"
+# build Vite related things
+echo "[INFO] Building npm dependencies..."
 npm run build
 
 # Run database migrations

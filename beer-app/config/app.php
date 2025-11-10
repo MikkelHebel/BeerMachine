@@ -56,6 +56,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | BeerMachine API URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL points to the BeerMachine API for status endpoints.
+    | Set BEERMACHINE_API in your .env file.
+    |
+    */
+
+    'beermachine_api' => env('BEERMACHINE_API', 'http://localhost:5107'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

@@ -1,22 +1,22 @@
-<nav class="flex items-center justify-between px-6 py-7 bg-[#FFCF4B] w-screen">
+@vite('resources/css/navigation-bar.css')
 
-    <a href="{{ route('home') }}">
-        <img src="{{ asset('images/nedenunder-logo.png') }}" alt="Nedenunder Logo" class="h-8 w-auto">
+<nav class="navbar">
+    <a href="{{ route('home') }}" class="navbar-logo">
+        <img src="{{ asset('images/nedenunder-logo.png') }}" alt="Nedenunder Logo">
     </a>
 
-    <div class="flex space-x-18 text-base">
-        <a href="{{ route('home') }}">Home</a>
-        <a href="{{ route('production') }}">Production</a>
-        <a href="{{ route('status') }}">Status</a> 
-        <a href="{{ route('statistics') }}">Statistics</a>
-        <a href="{{ route('admin') }}">Admin</a>
+    <div class="navbar-links">
+        <a href="{{ route('home') }}" class="navbar-text {{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
+        <a href="{{ route('production') }}" class="navbar-text {{ request()->routeIs('production') ? 'active' : '' }}">Production</a>
+        <a href="{{ route('status') }}" class="navbar-text {{ request()->routeIs('status') ? 'active' : '' }}">Status</a> 
+        <a href="{{ route('statistics') }}" class="navbar-text {{ request()->routeIs('statistics') ? 'active' : '' }}">Statistics</a>
+        <a href="{{ route('admin') }}" class="navbar-text {{ request()->routeIs('admin') ? 'active' : '' }}">Admin</a>
     </div>
 
-    <div class="flex space-x-5">
+    <div class="navbar-right">
         <a href="{{ route('settings') }}">
-            <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="h-8 w-auto">
+            <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
         </a>
-        <h3 class="from-red-50">ABORT</h3>
+        <h3 class="abort-btn">ABORT</h3>
     </div>
-
 </nav>
