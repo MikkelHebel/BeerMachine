@@ -1,6 +1,7 @@
 <x-app>
-    <x-navigation-bar/>
-    
+    <x-notification></x-notification>
+    <x-navigation-bar />
+
     <div class="flex justify-center items-center h-screen">
         <form class="space-y-20">
 

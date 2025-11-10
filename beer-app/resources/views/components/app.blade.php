@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('nedenunder-favicon.ico') }}">
 </head>
 <body>
+
     <main>
         {{ $slot }}
     </main>
