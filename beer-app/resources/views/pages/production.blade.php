@@ -1,6 +1,7 @@
 <x-app>
+    <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
-    
+
     <form>
             <select>
                 <option>Pilsner</option>

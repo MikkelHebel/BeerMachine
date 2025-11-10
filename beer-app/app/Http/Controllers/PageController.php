@@ -17,7 +17,7 @@ class PageController extends Controller
     }
 
     public function statistics() {
-        return view('pages.statistics')->with('notify', 'statistics');
+        return view('pages.statistics');
     }
 
     public function admin() {
