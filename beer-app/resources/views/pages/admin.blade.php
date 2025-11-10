@@ -1,5 +1,6 @@
 <x-app>
-    <x-navigation-bar/>
+    <x-notification></x-notification>
+    <x-navigation-bar />
 
     <h1>Admin's page</h1>
 
