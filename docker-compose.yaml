@@ -12,13 +12,9 @@ services:
       - fbi_van
     depends_on:
       - db
-    extra_hosts:
-      - "host.docker.internal:172.24.16.1" # <-- REPLACE IP
-      # in wsl run --> ip route show | grep default | awk '{print $3}' 
-      # This return the ip for wsl's host
-      # replace [WSL_HOST_IP] with the ip
-
-      # This has to be done since the docker services are running in wsl
+    extra_hosts: 
+    # use WSL_HOST_IP if set, else default to the 172.24.16.1
+    - "host.docker.internal:${WSL_HOST_IP:-172.24.16.1}"
 
   db:
     image: postgres:18.0
