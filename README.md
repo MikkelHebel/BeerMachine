@@ -47,8 +47,8 @@ For at fixe når db har problemer med volume:
 docker compose down -v
 ```
 
-> [!TIP] > `entrypoint.sh` skriptet håndterer automatisk:
->
+> [!TIP]
+> `entrypoint.sh` skriptet håndterer automatisk:
 > - Opretter .env hvis den mangler
 > - Composer dependencies (`composer install`)
 > - Installere node dependencies (`npm install` & `npm run build`)
