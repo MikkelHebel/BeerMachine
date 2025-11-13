@@ -17,6 +17,10 @@
         <a href="{{ route('settings') }}">
             <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
         </a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn">Logout</button>
+        </form>
         <h3 class="abort-btn">ABORT</h3>
     </div>
 </nav>
