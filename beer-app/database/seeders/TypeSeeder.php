@@ -12,10 +12,10 @@ class TypeSeeder extends Seeder
         // set lower and upper bound for speed for each type
         $types = [
             ['Pilsner', 0, 600],
-            ['Wheat', 0, 0],    // no data
+            ['Wheat', 0, 300],
             ['IPA', 0, 150],
             ['Stout', 0, 200],
-            ['Ale', 0, 0],      // no data
+            ['Ale', 0, 100],
             ['Alcohol-Free', 0, 125]
         ];
 
