@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/home.css',
                 'resources/css/login.css',
                 'resources/js/app.js',
+                'resources/js/homepage.js',
             ],
             refresh: true,
         }),
