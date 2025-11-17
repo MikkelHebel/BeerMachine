@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/home.css',
                 'resources/css/login.css',
                 'resources/js/app.js',
+                'resources/css/statistics.css',
             ],
             refresh: true,
         }),
