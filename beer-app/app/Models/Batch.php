@@ -15,7 +15,7 @@ class Batch extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['amount', 'failed', 'amount_completed', 'started_at', 'completed_at', 'user_id', 'type_id'];
+    protected $fillable = ['amount', 'speed', 'failed', 'amount_completed', 'started_at', 'completed_at', 'user_id', 'type_id'];
 
     public function user()
     {

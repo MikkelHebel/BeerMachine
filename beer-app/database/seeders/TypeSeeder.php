@@ -9,12 +9,24 @@ class TypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $types = ['Pilsner', 'Wheat', 'IPA', 'Stout', 'Ale', 'Alcohol-Free'];
+        // set lower and upper bound for speed for each type
+        $types = [
+            ['Pilsner', 0, 600],
+            ['Wheat', 0, 0],    // no data
+            ['IPA', 0, 150],
+            ['Stout', 0, 200],
+            ['Ale', 0, 0],      // no data
+            ['Alcohol-Free', 0, 125]
+        ];
 
         // for each of the types we set the name of a type to the type
         foreach ($types as $type) {
             Type::factory()->create(
-                ['name' => $type]
+                [
+                    'name' => $type[0],
+                    'lower_speed_limit' => $type[1],
+                    'upper_speed_limit' => $type[2]
+                ]
             );
         }
     }
