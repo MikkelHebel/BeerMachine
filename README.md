@@ -1,40 +1,48 @@
 # BeerMachine
+
 > [!IMPORTANT]
 > Husk at opdater `DB_PASSWORD=` i `.env` fil i /beer-app
+> Husk at opdater `DB_PASSWORD og WSL_HOST_IP ` i root/.env`
 
 ## Setup
+
 **Byg Docker containerne:**
 Kør i project root:
+
 ```bash
 docker compose build
 ```
 
 For at kører containerne i baggrunden:
+
 ```bash
 docker compose up -d
 ```
 
 Åbn applicationen på http://localhost:8000
 
-
 > [!TIP]
 > Andre brugbare commands
-For at se logs i realtid:
+> For at se logs i realtid:
+
 ```bash
 docker compose logs -f web
 ```
 
 Hvis du laver ændringer i `.env`, skal du genstarte web-containeren:
+
 ```bash
 docker compose restart web
 ```
 
 For at få shell på en container:
+
 ```bash
 docker compose exec db bash
 ```
 
 For at fixe når db har problemer med volume:
+
 ```bash
 docker compose down -v
 ```

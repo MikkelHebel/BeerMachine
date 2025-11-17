@@ -37,4 +37,9 @@ echo "[INFO] Running database migrations..."
 php artisan migrate:fresh
 php artisan db:seed
 
+# Create Pest cache (used for testing)
+echo "[INFO] Creating Pest cache directory..."
+mkdir -p .pest/cache
+chmod 775 .pest/cache
+
 exec php artisan serve --host=0.0.0.0 --port=8000

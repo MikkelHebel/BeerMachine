@@ -17,7 +17,9 @@ class TypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name()
+            'name' => 'type',
+            'lower_speed_limit' => 0,
+            'upper_speed_limit' => 0
         ];
     }
 }
