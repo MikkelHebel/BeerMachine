@@ -15,7 +15,7 @@ class Time extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['temperature', 'vibration', 'humidity', 'batch_id'];
+    protected $fillable = ['temperature', 'vibration', 'humidity', 'batch_id', 'speed', 'time_stamp'];
 
     public function batch()
     {
