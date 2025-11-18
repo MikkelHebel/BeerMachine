@@ -1,6 +1,7 @@
 <x-app>
     @vite(['resources/css/home.css'])
-    @vite(['resources/js/homepage.js'])
+    @vite(['resources/js/updateBatchStatus.js', 'resources/js/updateQueueStatus.js'])
+
     <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
     <div>
@@ -31,7 +32,7 @@
             <div class="value-box" id="ratio"></div>
         </div>
 
-        <div class="queue">
+        <div class="queue" name="queue">
             <h3>Queue</h3>
             <div class="queue-item">Batch: base</div>
             <div class="queue-item">Batch: base</div>

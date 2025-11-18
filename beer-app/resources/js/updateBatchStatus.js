@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             UpdateUI(batchData)
     }
 
+    // Check if there is an error and display the mock object
     function UpdateUI(batchStatus) {
         batchStatus = batchStatus[0];
         
