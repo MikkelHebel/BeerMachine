@@ -100,12 +100,14 @@ class ApiController extends Controller
                 $commandData['Parameters'] = $validated['parameters'];
             }
 
-            return $this->HttpPostCommand($commandData);
+            $response = $this->HttpPostCommand($commandData);
         } catch (\Exception $e) {
-            return response()->json([
+            $response = response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
             ], 500);
+        } finally {
+            return back()->with('response', $response);
         }
     }
 
