@@ -4,12 +4,6 @@
 
     <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
-    <div>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            target="_blank" rel="external nofollow">
-            Safe link
-        </a>
-    </div>
 
     <div class="contents">
         <div class="card">
