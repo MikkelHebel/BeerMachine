@@ -22,6 +22,7 @@ class TimeFactory extends Factory
             'temperature' => fake()->numberBetween(20, 37),
             'humidity' => fake()->numberBetween(30, 48.0),
             'vibration' => fake()->randomFloat(2, 0, 0.25),
+            'speed' => fake()->randomFloat(0, 600),
             'time_stamp' => now()   // overwrite this
         ];
     }
