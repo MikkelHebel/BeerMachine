@@ -8,31 +8,38 @@
             <div class="beerTypeRadio">
                 <div class="beerRadioOption">
                     <label>Pilsner</label>
-                    <input id="pilsnerradio" type="radio" value="0">
+                    <input id="pilsnerradio" name="beerselection" type="radio" value="0">
                 </div>
                 <div class="beerRadioOption">
                     <label>Wheat</label>
-                    <input id="wheatradio" type="radio" value="1">
+                    <input id="wheatradio" name="beerselection" type="radio" value="1">
                 </div>
                 <div class="beerRadioOption">
                     <label>IPA</label>
-                    <input id="iparadio" type="radio" value="2">
+                    <input id="iparadio" name="beerselection" type="radio" value="2">
                 </div>
                 <div class="beerRadioOption">
                     <label>Stout</label>
-                    <input id="stoutradio" type="radio" value="3">
+                    <input id="stoutradio" name="beerselection" type="radio" value="3">
                 </div>
                 <div class="beerRadioOption">
                     <label>Ale</label>
-                    <input id="aleradio" type="radio" value="4">
+                    <input id="aleradio" name="beerselection" type="radio" value="4">
                 </div>
                 <div class="beerRadioOption" >
                     <label>Alcohol Free</label>
-                    <input id="zeroalcoholradio" type="radio" value="5" onchange="line_graph(x_axis,y_axis)">
+                    <input id="zeroalcoholradio" name="beerselection" type="radio" value="5" onchange="line_graph(x_axis,y_axis)">
                 </div>
 
             </div>
         </form>
+        <div class="DataPlotsContainer">
+            <h3>Data Plots</h3>
+                <div class="DataPlots">
+                    <button class="DataPlotsbuttons" type="button" onclick="">Failure by speed</button>
+                    <button class="DataPlotsbuttons" type="button" onclick="">Ingredients</button>
+                </div>
+        </div>
         <div id="graphView">
             <canvas id="myChart"></canvas>
         </div>
