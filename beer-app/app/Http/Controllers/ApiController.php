@@ -65,6 +65,18 @@ class ApiController extends Controller
         }
     }
 
+    public function QueueStatus(Request $request)
+    {
+        try {
+            return $this->HttpGetStatus("queue");
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     private function HttpGetStatus(string $status)
     {
         $beerMachineApiBaseUrl = config('app.beermachine_api');

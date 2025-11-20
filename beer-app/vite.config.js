@@ -11,6 +11,8 @@ export default defineConfig({
                 'resources/css/home.css',
                 'resources/css/login.css',
                 'resources/js/app.js',
+                'resources/js/updateBatchStatus.js',
+                'resources/js/updateQueueStatus.js',
             ],
             refresh: true,
         }),
