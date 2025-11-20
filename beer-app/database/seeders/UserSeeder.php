@@ -15,14 +15,13 @@ class UserSeeder extends Seeder
             'name' => 'developer',
             'email' => 'dev@dev.com',
             'password' => Hash::make('dev'),
+            'is_admin' => true,
         ]);
 
-        $admins = [true, false];
-
-        foreach ($admins as $admin) {
-            User::factory()->create([
-                'is_admin' => $admin
-            ]);
-        }
+        DB::table('users')->insert([
+            'name' => 'user',
+            'email' => 'user@user.com',
+            'password' => Hash::make('user'),
+        ]);
     }
 }

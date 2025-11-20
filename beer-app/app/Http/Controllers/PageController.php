@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -21,7 +22,8 @@ class PageController extends Controller
     }
 
     public function admin() {
-        return view('pages.admin');
+        $users = User::latest()->get();
+        return view('pages.admin', compact('users'));
     }
 
     public function settings() {

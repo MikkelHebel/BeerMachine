@@ -18,6 +18,11 @@
             <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
         </a>
 
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn">Logout</button>
+        </form>
+
         <form action="{{ route('send.command') }}" method="POST">
             @csrf
             <input type="hidden" name="type" value="abort">
