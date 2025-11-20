@@ -26,7 +26,7 @@
             <div class="value-box" id="ratio"></div>
         </div>
 
-        <div class="queue" name="queue">
+        <div class="queue" name="queue" id="queue">
             <h3>Queue</h3>
             <div class="queue-item">Batch: base</div>
             <div class="queue-item">Batch: base</div>

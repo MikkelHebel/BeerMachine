@@ -1,28 +1,56 @@
+// Beer type mapping
+const BEER_TYPES = {
+    0: "Pilsner",
+    1: "Wheat",
+    2: "IPA",
+    3: "Stout",
+    4: "Ale",
+    5: "Alcohol Free"
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const queueDiv = document.getElementById("queue")
 
     async function loadQueueData() {
-        const queueData = await loadQueueData();
+        const queueData = await fetchQueueData();
         console.log(queueData);
-        if (queueData)
-            UpdateUI(queueData);
+        
+        if (queueData) {
+            UpdateUI(queueData);    
+        }
     }
 
-    function UpdateUI(queueStatus) {
-        for (let index = 0; index < queueStatus.length; index++) {
-            const batchElement = document.createElement("div"); // create div for the batch
-            const batch = queueStatus[index];                   // get the batch
-            batchElement.textContent = "Batch id: ";
-            batchElement.textContent += batch.batchId;           
-            queueDiv.appendChild(batchElement);  
-        }        
+    function UpdateUI(queue) {
+        queueDiv.innerHTML = ``;    // Clear queue contents
+
+        queue.forEach(batch => {
+            const batchElement = document.createElement("div");             // create div for the batch
+            const beerTypeName = BEER_TYPES[batch.type] || `Unknown (${batch.type})`;
+            
+            batchElement.innerHTML = `
+            Amount: ${batch.amount}<br> 
+            Speed: ${batch.speed}<br> 
+            Type: ${beerTypeName}`;
+            
+            batchElement.className = "queue-item";         
+            queueDiv.appendChild(batchElement); 
+        });
     }
 
     loadQueueData();
     setInterval(loadQueueData, 5000);
 });
 
-async function loadQueueData() {
+async function fetchQueueData() {
     const response = await fetch("http://localhost:8000/api/status/queue");
     return await response.json();
 }
+
+/*
+sample response
+    [
+        {"id":null,"amount":50,"speed":100,"type":1,"userId":1,"defectiveAmount":0,"producedAmount":0},
+        {"id":null,"amount":50,"speed":100,"type":1,"userId":1,"defectiveAmount":0,"producedAmount":0},
+        {"id":null,"amount":50,"speed":100,"type":1,"userId":1,"defectiveAmount":0,"producedAmount":0}
+    ]
+*/

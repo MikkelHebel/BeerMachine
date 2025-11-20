@@ -30,14 +30,14 @@ async function FetchBatchStatus() {
     return await response.json();
 }
 /* 
-    example response
-
-    "batchId": 0,
-    "beerType": 0,
-    "speed": 0,
-    "toProduceAmount": 0,
-    "producedAmount": 0,
-    "defectiveAmount": 0,
-    "userId": 0,
-    "failureRate": 0
+    {
+        "batchId": 0,
+        "beerType": 0,
+        "speed": 0,
+        "toProduceAmount": 0,
+        "producedAmount": 0,
+        "defectiveAmount": 0,
+        "userId": 0,
+        "failureRate": 0
+    }
 */
