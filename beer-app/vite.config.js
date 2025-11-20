@@ -10,6 +10,8 @@ export default defineConfig({
                 'resources/css/navigation-bar.css',
                 'resources/css/home.css',
                 'resources/js/app.js',
+                'resources/js/production.js',
+                'resources/css/production.css'
             ],
             refresh: true,
         }),
