@@ -1,5 +1,5 @@
 <x-app>
-    @vite('resources/css/statistics.css')
+   @vite(['resources/css/statistics.css', 'resources/js/statistics.js'])
     <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
 
@@ -31,8 +31,8 @@
                         <input id="aleradio" name="beerselection" type="radio" value="4">
                     </div>
                     <div class="beerRadioOption" >
-                        <label>Alcohol Free</label>
-                        <input id="zeroalcoholradio" name="beerselection" type="radio" value="5" onchange="line_graph(x_axis,y_axis)">
+                        <label>0%</label>
+                        <input id="zeroalcoholradio" name="beerselection" type="radio" value="5" click="">
                     </div>
                 </div>
             </form>
@@ -40,7 +40,7 @@
             <div class="DataPlotsContainer">
                 <h3>Data Plots</h3>
                 <div class="DataPlots">
-                    <button class="DataPlotsbuttons" type="button" onclick="">Failure by speed</button>
+                    <button id="failureBySpeed" class="DataPlotsbuttons" type="button">Failure by speed</button>
                     <button class="DataPlotsbuttons" type="button" onclick="">Ingredients</button>
                 </div>
             </div>

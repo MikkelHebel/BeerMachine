@@ -1,8 +1,16 @@
+import { chart } from "https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js";
+
 let x_axis = [25, 50, 75, 100, 125, 150];
 let y_axis = [10, 20, 35, 55, 80, 95];
+
+document.getElementById('failureBySpeed').addEventListener("click", () => {
+    line_graph(x_axis, y_axis);
+    });
+
 function line_graph(x, y) {
     const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
+
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels: x, // x values
@@ -43,3 +51,4 @@ function line_graph(x, y) {
         }
         });
 }
+
