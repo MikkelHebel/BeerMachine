@@ -13,13 +13,14 @@
             console.log(msg);
         }
 
+        // date is not zero indexed
         const beerTypeMap = {
-            "Pilsner": 0,
-            "Wheat": 1,
-            "IPA": 2,
-            "Stout": 3,
-            "Ale": 4,
-            "Alcohol Free": 5,
+            "Pilsner": 1,
+            "Wheat": 2,
+            "IPA": 3,
+            "Stout": 4,
+            "Ale": 5,
+            "Alcohol Free": 6,
         };
 
         btnSubmit.addEventListener('click', async (e) => {
@@ -50,7 +51,7 @@
                 const isRunning = (state === 6); // execute
                 const isReady = [2, 4, 17].includes(state); // stopped, idle, complete
 
-                if (isRunning) {
+                /*if (isRunning) {
                     notify("A batch is already running. Wait until it finishes.");
                     return;
                 }
@@ -77,7 +78,7 @@
 
                     console.log("2");
 
-                }
+                }*/
 
                 const batchCommand = {
                     type: "batch",
@@ -88,8 +89,6 @@
                         user: 1  // should get from log in
                     }
                 };
-                                console.log("3");
-
 
                 // queue batch
                 await fetch("/api/command", {
@@ -98,17 +97,14 @@
                     body: JSON.stringify(batchCommand)
                 });
 
-                console.log("4");
-
-
-                // start batch
+                /*// start batch
                 await fetch("/api/command", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
                     body: JSON.stringify({ type: "start" })
-                });
+                });*/
 
-                notify("Batch queued and started!");
+                notify("Batch queued!");
 
             } catch (err) {
                 notify("Error: " + err.message);
