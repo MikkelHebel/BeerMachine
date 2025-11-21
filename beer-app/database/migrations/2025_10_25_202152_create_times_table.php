@@ -17,6 +17,7 @@ return new class extends Migration
             $table->float('temperature');
             $table->float('humidity');
             $table->float('vibration');
+            $table->float('speed');
             $table->timestamp('time_stamp');
             $table->timestamps();
         });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->integer('amount');
+            $table->integer('speed');
             $table->integer('failed')->default(0);
             $table->integer('amount_completed')->default(0);
             $table->timestamp('started_at')->nullable();
