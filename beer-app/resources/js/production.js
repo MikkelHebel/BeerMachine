@@ -23,6 +23,8 @@
         };
 
         btnSubmit.addEventListener('click', async (e) => {
+            console.log("Submit clicked")
+
             e.preventDefault();
 
             const beerType = selectBeer.value;
@@ -63,12 +65,18 @@
                     });
                     await new Promise(r => setTimeout(r, 800));
 
+                    console.log("1");
+
+
                     await fetch("/api/command", {
                         method: "POST",
                         headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
                         body: JSON.stringify({ type: "reset" })
                     });
                     await new Promise(r => setTimeout(r, 800));
+
+                    console.log("2");
+
                 }
 
                 const batchCommand = {
@@ -80,6 +88,8 @@
                         user: 1  // should get from log in
                     }
                 };
+                                console.log("3");
+
 
                 // queue batch
                 await fetch("/api/command", {
@@ -87,6 +97,9 @@
                     headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
                     body: JSON.stringify(batchCommand)
                 });
+
+                console.log("4");
+
 
                 // start batch
                 await fetch("/api/command", {
