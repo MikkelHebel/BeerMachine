@@ -2,10 +2,12 @@
         const form = document.getElementById('production-form');
         const csrf = form.querySelector('input[name="_token"]').value;
         const btnSubmit = document.getElementById('btnSubmit');
+        
 
         const selectBeer = form.querySelector('select');
         const inputSpeed = form.querySelectorAll('input')[1]; 
         const inputQuantity = form.querySelectorAll('input')[2]; 
+        const inputUser = form.querySelectorAll('input')[3]; 
 
         // Notify function (placeholder for the notification from Tobias)
         function notify(msg) {
@@ -13,98 +15,65 @@
             console.log(msg);
         }
 
-        // date is not zero indexed
-        const beerTypeMap = {
-            "Pilsner": 1,
-            "Wheat": 2,
-            "IPA": 3,
-            "Stout": 4,
-            "Ale": 5,
-            "Alcohol Free": 6,
-        };
-
         btnSubmit.addEventListener('click', async (e) => {
             console.log("Submit clicked")
 
             e.preventDefault();
 
-            const beerType = selectBeer.value;
+            const beerTypeId = parseInt(selectBeer.value);
             const speed = parseInt(inputSpeed.value);
             const quantity = parseInt(inputQuantity.value);
+            const userId = parseInt(inputUser.value);
 
-            if (!beerType || isNaN(speed) || isNaN(quantity)) {
+            if (!beerTypeId || isNaN(speed) || isNaN(quantity)) {
                 notify('Fill all fields!');
                 return;
             }
 
-            const beerTypeId = beerTypeMap[beerType] ?? 0;
+            if (beerTypeId > 6 || beerTypeId < 1) {
+                notify('beer type error');
+                return;
+            }
             
             try {
-                // get machine status
-                const machineRes = await fetch("/api/status/machine");
-                const machine = await machineRes.json();
-                const state = machine.state;
+/*                // get machine status
+                //const machineRes = await fetch("/api/status/machine");
+                //const machine = await machineRes.json();
+                //const state = machine.state;
 
-                console.log("Machine State:", state);
+                //console.log("Machine State:", state);
 
                 // check if batch is running or what state it is in
-                const isRunning = (state === 6); // execute
-                const isReady = [2, 4, 17].includes(state); // stopped, idle, complete
+                //const isRunning = (state === 6); // execute
+                //const isReady = [2, 4, 17].includes(state); // stopped, idle, complete
 
-                /*if (isRunning) {
-                    notify("A batch is already running. Wait until it finishes.");
-                    return;
+                if (isRunning) {
+                    notify("A batch is already running. The batch has been queue");
                 }
 
                 if (!isReady) {
                     notify("Stopping and resetting");
-
-                    await fetch("/api/command", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
-                        body: JSON.stringify({ type: "stop" })
-                    });
-                    await new Promise(r => setTimeout(r, 800));
-
-                    console.log("1");
-
-
-                    await fetch("/api/command", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
-                        body: JSON.stringify({ type: "reset" })
-                    });
-                    await new Promise(r => setTimeout(r, 800));
-
-                    console.log("2");
-
-                }*/
-
+                }
+*/
                 const batchCommand = {
                     type: "batch",
                     parameters: {
                         amount: quantity,
                         speed: speed,
-                        type: beerTypeId,  // should get the type from the db seeder
-                        user: 1  // should get from log in
+                        type: beerTypeId,
+                        user: userId
                     }
                 };
 
                 // queue batch
-                await fetch("/api/command", {
+                const response = await fetch("/api/command", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
                     body: JSON.stringify(batchCommand)
                 });
 
-                /*// start batch
-                await fetch("/api/command", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
-                    body: JSON.stringify({ type: "start" })
-                });*/
-
                 notify("Batch queued!");
+                console.log(response);
 
             } catch (err) {
                 notify("Error: " + err.message);

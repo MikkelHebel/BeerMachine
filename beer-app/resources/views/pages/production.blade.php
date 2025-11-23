@@ -10,16 +10,14 @@
             @csrf
 
             <div class="form-top">
+
                 <div class="beer-type">
                     <label>Beer Type</label>
-                    <select class="input">
+                    <select class="input"> 
                         <option disabled selected hidden>Select beer type</option>
-                        <option>Pilsner</option>
-                        <option>Wheat</option>
-                        <option>IPA</option>
-                        <option>Stout</option>
-                        <option>Ale</option>
-                        <option>Alcohol Free</option>
+                        @foreach ($types as $type) <!-- Create type options based on types from db -->
+                            <option value='{{$type->id}}'>{{$type->name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -34,6 +32,9 @@
                         <input class="input" placeholder="Amount...">
                     </div>
                 </div>
+
+                <input value="{{ auth()->user()->id }}" id="user" hidden>
+                
             </div>
 
             <div class="buttons">

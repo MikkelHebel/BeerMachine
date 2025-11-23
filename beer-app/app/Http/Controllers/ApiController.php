@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Validation\ValidationException;
 
 class ApiController extends Controller
 {
@@ -123,7 +126,7 @@ class ApiController extends Controller
             // Validate required fields
             $validated = $request->validate([
                 'type' => 'required|string|max:255',
-                'parameters' => 'sometimes|array' // Optional parameters (batch)
+                'parameters' => 'sometimes|array', // Optional parameters (batch)
             ]);
 
             $commandData = [
@@ -135,13 +138,12 @@ class ApiController extends Controller
             }
 
             $response = $this->HttpPostCommand($commandData);
+
+            return back()->with('notify', 'Command sent successfully!');
+        } catch (ValidationException $e) {
+            return back()->with('notify', 'batch validation failed');
         } catch (\Exception $e) {
-            $response = response()->json([
-                'error' => true,
-                'message' => $e->getMessage(),
-            ], 500);
-        } finally {
-            return back()->with('response', $response);
+            return back()->with('notify', 'Failed to send command: ' . $e->getMessage());
         }
     }
 
