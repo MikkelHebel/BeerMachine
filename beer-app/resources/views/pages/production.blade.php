@@ -38,8 +38,10 @@
 
             <div class="buttons">
                 <button id="btnCalibrate" class="button btnCalibrate">Calibrate</button>
+
                 <button id="btnClear" class="button btnClear">Clear</button>
-                <button id="btnSubmit" class="button btnSubmit">Start</button>
+
+                <button id="btnSubmit" class="button btnSubmit">Add to queue</button>
             </div>
 
             <div class="batch-card">
@@ -49,5 +51,24 @@
                 </div>
             </div>
         </form>
+        
+        <form action="{{ route('send.command') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="start">
+            <button type="submit">Start production</button>
+        </form>
+
+        <form action="{{ route('send.command') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="stop">
+            <button type="submit">Stop</button>
+        </form>
+
+        <form action="{{ route('send.command') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="reset">
+            <button type="submit">Reset</button>
+        </form>
+
     </div>
 </x-app>
