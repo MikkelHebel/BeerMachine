@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Validation\ValidationException;
 
 class ApiController extends Controller
 {
@@ -29,7 +32,7 @@ class ApiController extends Controller
         }
     }
 
-    public function MachineStatus(Request $request)
+    /*public function MachineStatus(Request $request)
     {
         try {
             return $this->HttpGetStatus("machine");
@@ -43,6 +46,28 @@ class ApiController extends Controller
                 'Vibration' => 3,
                 'Humidity' => 10,
                 'StopReason' => 0,
+            ]);
+        }
+    }*/
+
+    public function MachineStatus(Request $request)
+    {
+        try {
+            $res = $this->HttpGetStatus("machine");
+            $json = $res->getData(true);
+
+            $machine = $json[0] ?? [];
+
+
+            return response()->json([
+                'state' => $machine['stateCurrent'] ?? null,
+                'data' => $machine
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'state' => 2, // fallback to stopped state (2)
             ]);
         }
     }
@@ -101,7 +126,7 @@ class ApiController extends Controller
             // Validate required fields
             $validated = $request->validate([
                 'type' => 'required|string|max:255',
-                'parameters' => 'sometimes|array' // Optional parameters (batch)
+                'parameters' => 'sometimes|array', // Optional parameters (batch)
             ]);
 
             $commandData = [
@@ -113,13 +138,12 @@ class ApiController extends Controller
             }
 
             $response = $this->HttpPostCommand($commandData);
+
+            return back()->with('notify', 'Command sent successfully!');
+        } catch (ValidationException $e) {
+            return back()->with('notify', 'batch validation failed');
         } catch (\Exception $e) {
-            $response = response()->json([
-                'error' => true,
-                'message' => $e->getMessage(),
-            ], 500);
-        } finally {
-            return back()->with('response', $response);
+            return back()->with('notify', 'Failed to send command: ' . $e->getMessage());
         }
     }
 

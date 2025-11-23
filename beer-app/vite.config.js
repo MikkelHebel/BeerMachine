@@ -13,6 +13,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/updateBatchStatus.js',
                 'resources/js/updateQueueStatus.js',
+                'resources/js/production.js',
+                'resources/css/production.css'
             ],
             refresh: true,
         }),

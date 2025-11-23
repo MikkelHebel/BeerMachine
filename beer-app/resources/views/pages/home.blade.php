@@ -1,4 +1,8 @@
 <x-app>
+    <script>
+        window.beerTypes = @json($types);
+    </script>
+
     @vite(['resources/css/home.css'])
     @vite(['resources/js/updateBatchStatus.js', 'resources/js/updateQueueStatus.js'])
 

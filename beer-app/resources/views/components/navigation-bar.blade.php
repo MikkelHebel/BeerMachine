@@ -14,6 +14,9 @@
     </div>
 
     <div class="navbar-right">
+
+        <p>Logged in as {{ auth()->user()->name }}</p>
+
         <a href="{{ route('settings') }}">
             <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
         </a>
