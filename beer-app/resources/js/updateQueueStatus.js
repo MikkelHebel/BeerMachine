@@ -1,12 +1,8 @@
 // Beer type mapping
-const BEER_TYPES = {
-    0: "Pilsner",
-    1: "Wheat",
-    2: "IPA",
-    3: "Stout",
-    4: "Ale",
-    5: "Alcohol Free"
-};
+const BEER_TYPES = {}
+window.beerTypes.forEach(type => {
+        BEER_TYPES[type.id] = type.name;
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const queueDiv = document.getElementById("queue")
