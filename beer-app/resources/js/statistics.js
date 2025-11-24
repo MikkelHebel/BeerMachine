@@ -52,3 +52,12 @@ function line_graph(x, y) {
         });
 }
 
+function getBeerDataset() {
+    const selectedBeertype = document.querySelector('input[name="beerselection"]:checked');
+    if (selectedBeertype) {
+        const selectedValue = selectedBeertype.value;
+
+
+    }
+}
+

@@ -2,30 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
+
 class PageController extends Controller
 {
-    public function home() {
-        return view('pages.home');
+    public function home()
+    {
+        $types = Type::all();
+        return view('pages.home')->with('types', $types);;
     }
 
-    public function production() {
-        return view('pages.production');
+    public function production()
+    {
+        $types = Type::all();
+        return view('pages.production')->with('types', $types);
     }
 
-    public function status() {
+    public function status()
+    {
         return view('pages.status');
     }
 
-    public function statistics() {
+    public function statistics()
+    {
         return view('pages.statistics');
     }
 
-    public function admin() {
+    public function admin()
+    {
         return view('pages.admin');
     }
 
-    public function settings() {
+    public function settings()
+    {
         return view('pages.settings');
     }
-
 }

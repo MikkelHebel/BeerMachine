@@ -14,13 +14,17 @@
     </div>
 
     <div class="navbar-right">
+
+        <p>Logged in as {{ auth()->user()->name }}</p>
+
         <a href="{{ route('settings') }}">
             <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
         </a>
-        <form action="{{ route('logout') }}" method="POST">
+
+        <form action="{{ route('send.command') }}" method="POST">
             @csrf
-            <button type="submit" class="btn">Logout</button>
+            <input type="hidden" name="type" value="abort">
+            <button type="submit" class="abort-btn">ABORT</button>
         </form>
-        <h3 class="abort-btn">ABORT</h3>
     </div>
 </nav>

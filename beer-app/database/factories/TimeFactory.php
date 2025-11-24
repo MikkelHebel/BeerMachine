@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Batch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +17,13 @@ class TimeFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'batch_id' => 1,        // overwrite this
+            'temperature' => fake()->numberBetween(20, 37),
+            'humidity' => fake()->numberBetween(30, 48.0),
+            'vibration' => fake()->randomFloat(2, 0, 0.25),
+            'speed' => fake()->randomFloat(0, 600),
+            'time_stamp' => now()   // overwrite this
+        ];
     }
 }
