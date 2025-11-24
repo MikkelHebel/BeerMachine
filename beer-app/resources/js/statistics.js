@@ -1,7 +1,7 @@
 import { chart } from "https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js";
 
-let x_axis = [25, 50, 75, 100, 125, 150];
-let y_axis = [10, 20, 35, 55, 80, 95];
+// let x_axis = [25, 50, 75, 100, 125, 150];
+// let y_axis = [10, 20, 35, 55, 80, 95];
 
 document.getElementById('failureBySpeed').addEventListener("click", () => {
     line_graph(x_axis, y_axis);
@@ -55,9 +55,11 @@ function line_graph(x, y) {
 function getBeerDataset() {
     const selectedBeertype = document.querySelector('input[name="beerselection"]:checked');
     if (selectedBeertype) {
-        const selectedValue = selectedBeertype.value;
-
-
+        const selectedValue = selectedBeertype.value.trim();
+        console.log("Selected beer type ID:", selectedValue);
+        return selectedValue;
     }
+    console.log("No beer type selected");
+    return null;
 }
 

@@ -13,11 +13,11 @@
             <h2>Select a beer type to view data from:</h2>
 
             <form action="">
-                <div class="beerTypeRadio"
+                <div class="beerTypeRadio">
                     @foreach ($types as $type)
                         <div class="beerRadioOption">
-                            <label>{{ $type -> name }} </label>
-                            <input id="pilsnerradio" name="beerselection" type="radio" value=" {{ $type -> id }}">
+                            <label>{{ $type -> name }}</label>
+                            <input id="pilsnerradio" name="beerselection" type="radio" value="{{ $type -> id }}">
                         </div>
                     @endforeach
                 </div>

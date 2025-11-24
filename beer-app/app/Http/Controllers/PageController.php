@@ -25,7 +25,8 @@ class PageController extends Controller
 
     public function statistics()
     {
-        return view('pages.statistics');
+        $types = Type::all();
+        return view('pages.statistics')->with('types', $types);
     }
 
     public function admin()
