@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
@@ -17,6 +18,11 @@ Route::middleware('auth')->controller(PageController::class)->group(function() {
     Route::get('/settings', 'settings')->name('settings');
 });
 
-Route::middleware(['auth', 'admin'])->controller(PageController::class)->group(function() {
-    Route::get('/admin', 'admin')->name('admin');
+Route::middleware(['auth', 'admin'])->group(function() {
+    Route::get('/admin', [PageController::class, 'admin'])->name('admin');
+
+    Route::get('/users/create', [UserController::class, 'index'])->name('user.create');
+
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.edit');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.delete');
 });
