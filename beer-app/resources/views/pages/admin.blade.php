@@ -12,20 +12,21 @@
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
-            <th></th>
+            <th>Admin?</th>
         </tr>
         @foreach ($users as $user)
             <tr>
                 <th>{{ $user->id }}</th>
                 <th>{{ $user->name }}</th>
                 <th>{{ $user->email }}</th>
+                <th>{{ $user->is_admin }}</th>
                 <th>
                     <form action="{{ route('user.edit', $user->id) }}" method="GET">
                         <button type="submit">Edit</button>
                     </form>
                 </th>
                 <th>
-                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="return confirm("Are you sure?")>
+                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                         @method('DELETE')
                         @csrf
                         <button type="submit">Delete</button>

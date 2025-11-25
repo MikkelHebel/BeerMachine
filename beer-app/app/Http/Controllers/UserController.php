@@ -39,13 +39,21 @@ class UserController extends Controller
     public function update(Request $request, string $id) {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users,email',
+            'email' => 'required|string|max:255|unique:users,email,'.$id,
             'password' => 'nullable|string',
             'is_admin' => 'nullable|boolean',
         ]);
 
         $user = User::findOrFail($id);
-        $user->update($request->only(['name', 'email', 'password', 'is_admin']));
+
+        $data = $request->only(['name', 'email']);
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+        $data['is_admin'] = $request->has('is_admin') ? 1 : 0;
+
+        $user->update($data);
 
         return redirect()->route('admin')->with('notify', 'Account Edited!');
     }

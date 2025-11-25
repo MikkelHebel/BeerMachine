@@ -17,7 +17,7 @@
         <input type="password" name="password">
 
         <label for="is_admin" class="input-label">Is this user an Admin?</label>
-        <input type="checkbox" name="is_admin" {{ old('is_admin', $user->is_admin) ? 'checked' : '' }} />
-        <button type="submit">New User</button>
+        <input type="checkbox" name="is_admin" value="1" {{ old('is_admin', $user->is_admin) ? 'checked' : '' }} />
+        <button type="submit">Update User</button>
     </form>
 </x-app>

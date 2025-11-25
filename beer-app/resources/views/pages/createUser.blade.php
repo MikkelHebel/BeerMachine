@@ -16,7 +16,7 @@
         <input type="password" name="password" required>
 
         <label for="is_admin" class="input-label">Is this user an Admin?</label>
-        <input type="checkbox" name="is_admin" />
+        <input type="checkbox" name="is_admin" value="1" />
         <button type="submit">New User</button>
     </form>
 </x-app>
