@@ -15,7 +15,8 @@ class TimeSeeder extends Seeder
         foreach ($batches as $batch) {
             for ($i = 0; $i < $batch->amount_completed; $i++) {
                 Time::factory()->create([
-                    'batch_id' => $batch->id
+                    'batch_id' => $batch->id,
+                    'speed' => $batch->speed
                 ]);
             }
         }
