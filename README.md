@@ -47,6 +47,15 @@ For at fixe når db har problemer med volume:
 docker compose down -v
 ```
 
+## Test Accounts
+Admin account:
+Username: dev@dev.com
+Password: dev
+
+User account:
+Username: user@user.com
+Password: user
+
 > [!TIP]
 > `entrypoint.sh` skriptet håndterer automatisk:
 > - Opretter .env hvis den mangler

@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Batch::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
 }
