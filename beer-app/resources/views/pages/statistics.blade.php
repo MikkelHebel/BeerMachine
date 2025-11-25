@@ -1,15 +1,15 @@
 <x-app>
     <script>
         window.beerTypes = @json($types);
-        window.Batchone = @json($batchone);
-        window.Batchtwo = @json($batchtwo);
-        window.Batchthree = @json($batchthree);
-        window.Batchfour = @json($batchfour);
-        window.Batchfive = @json($batchfive);
-        window.Batchsix = @json($batchsix);
+        window.batchOne = @json($batchOne);
+        window.batchTwo = @json($batchTwo);
+        window.batchThree = @json($batchThree);
+        window.batchFour = @json($batchFour);
+        window.batchFive = @json($batchFive);
+        window.batchSix = @json($batchSix);
     </script>
 
-   @vite(['resources/css/statistics.css', 'resources/js/statistics.js'])
+    @vite(['resources/css/statistics.css', 'resources/js/statistics.js'])
     <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
 
@@ -19,13 +19,13 @@
             <h2>Select a beer type to view data from:</h2>
 
             <form>
-            @csrf
+                @csrf
                 <div class="beerTypeRadio">
                     @foreach ($types as $type)
-                        <div class="beerRadioOption">
-                            <label>{{ $type -> name }}</label>
-                            <input id="pilsnerradio" name="beerselection" type="radio" value="{{ $type -> id }}">
-                        </div>
+                    <div class="beerRadioOption">
+                        <label>{{ $type -> name }}</label>
+                        <input id="pilsnerradio" name="beerselection" type="radio" value="{{ $type -> id }}">
+                    </div>
                     @endforeach
                 </div>
             </form>
@@ -50,4 +50,3 @@
     </div>
 
 </x-app>
-
