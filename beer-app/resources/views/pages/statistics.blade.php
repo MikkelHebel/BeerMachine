@@ -1,6 +1,12 @@
 <x-app>
     <script>
         window.beerTypes = @json($types);
+        window.Batchone = @json($batchone);
+        window.Batchtwo = @json($batchtwo);
+        window.Batchthree = @json($batchthree);
+        window.Batchfour = @json($batchfour);
+        window.Batchfive = @json($batchfive);
+        window.Batchsix = @json($batchsix);
     </script>
 
    @vite(['resources/css/statistics.css', 'resources/js/statistics.js'])
@@ -12,7 +18,8 @@
 
             <h2>Select a beer type to view data from:</h2>
 
-            <form action="">
+            <form>
+            @csrf
                 <div class="beerTypeRadio">
                     @foreach ($types as $type)
                         <div class="beerRadioOption">
