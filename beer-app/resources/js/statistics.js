@@ -2,6 +2,8 @@ import { chart } from "https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js";
 // let x_axis = [25, 50, 75, 100, 125, 150];
 // let y_axis = [10, 20, 35, 55, 80, 95];
 
+let currentChart = null;
+
 document.getElementById('failureBySpeed').addEventListener("click", () => {
     getBeerDataset();
     });
@@ -9,7 +11,12 @@ document.getElementById('failureBySpeed').addEventListener("click", () => {
 function line_graph(x, y) {
     const ctx = document.getElementById('myChart');
 
-    new Chart(ctx, {
+    if (currentChart) {
+        currentChart.destroy();
+        currentChart = null;
+    }
+
+    currentChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: x, // x values
@@ -51,12 +58,12 @@ function line_graph(x, y) {
         });
 }
 
-function failedratio(fails, completed) {
-    const failrate = [];
+function failedRatio(fails, completed) {
+    const failRate = [];
     for (let index = 0; index < completed.length; index++) {
-        failrate.push((fails[index] / completed[index])*100);
+        failRate.push((fails[index] / completed[index])*100);
     }
-    return failrate;
+    return failRate;
 }
 
 function getBeerDataset() {
@@ -65,49 +72,31 @@ function getBeerDataset() {
         console.log("No beer type selected");
         return;
     }
-    const selectedValue = selectedBeertype.value.trim();
+    const selectedValue = parseInt(selectedBeertype.value.trim());
 
-    const speed = [];
-    const amount_completed = [];
-    const failed = [];
-    const failrate = [];
+    let speed = [];
+    let amount_completed = [];
+    let failed = [];
+    let failRate = [];
 
     switch (selectedValue) {
         case 1:
-            speed = window.Batchone.map(Batchone => Batchone.speed);
-            amount_completed = window.Batchone.map(Batchone => Batchone.amount_completed);
-            failed = window.Batchone.map(Batchone => Batchone.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchOne)
             break;
         case 2:
-            speed = window.Batchtwo.map(Batchtwo => Batchtwo.speed);
-            amount_completed = window.Batchtwo.map(Batchtwo => Batchtwo.amount_completed);
-            failed = window.Batchtwo.map(Batchtwo => Batchtwo.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchTwo)
             break;
         case 3:
-            speed = window.Batchthree.map(Batchthree => Batchthree.speed);
-            amount_completed = window.Batchthree.map(Batchthree => Batchthree.amount_completed);
-            failed = window.Batchthree.map(Batchthree => Batchthree.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchThree)
             break;
         case 4:
-            speed = window.Batchfour.map(Batchfour => Batchfour.speed);
-            amount_completed = window.Batchfour.map(Batchfour => Batchfour.amount_completed);
-            failed = window.Batchfour.map(Batchfour => Batchfour.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchFour)
             break;
         case 5:
-            speed = window.Batchfive.map(Batchfive => Batchfive.speed);
-            amount_completed = window.Batchfive.map(Batchfive => Batchfive.amount_completed);
-            failed = window.Batchfive.map(Batchfive => Batchfive.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchFive)
             break;
         case 6:
-            speed = window.Batchsix.map(Batchsix => Batchsix.speed);
-            amount_completed = window.Batchfive.map(Batchsix => Batchsix.amount_completed);
-            failed = window.Batchsix.map(Batchsix => Batchsix.failed);
-            failrate = failedratio(failed, amount_completed);
+            setupVariables(window.batchSix)
             break;
 
         default:
@@ -115,9 +104,16 @@ function getBeerDataset() {
             break;
     }
     console.log(speed);
-    console.log(failrate);
+    console.log(failRate);
     console.log(selectedValue);
-    line_graph(speed, failrate);
+    line_graph(speed, failRate);
 
+    function setupVariables(batch) {
+        batch.sort((a, b) => a.speed - b.speed);
+        speed = batch.map(batch => batch.speed);
+        amount_completed = batch.map(batch => batch.amount_completed);
+        failed = batch.map(batch => batch.failed);
+        failRate = failedRatio(failed, amount_completed);
+    }
 }
 
