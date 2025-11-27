@@ -36,25 +36,6 @@
             }
             
             try {
-/*                // get machine status
-                //const machineRes = await fetch("/api/status/machine");
-                //const machine = await machineRes.json();
-                //const state = machine.state;
-
-                //console.log("Machine State:", state);
-
-                // check if batch is running or what state it is in
-                //const isRunning = (state === 6); // execute
-                //const isReady = [2, 4, 17].includes(state); // stopped, idle, complete
-
-                if (isRunning) {
-                    notify("A batch is already running. The batch has been queue");
-                }
-
-                if (!isReady) {
-                    notify("Stopping and resetting");
-                }
-*/
                 const batchCommand = {
                     type: "batch",
                     parameters: {

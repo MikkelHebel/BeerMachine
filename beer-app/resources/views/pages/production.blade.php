@@ -1,6 +1,7 @@
 <x-app>
     @vite(['resources/css/production.css'])
     @vite(['resources/js/production.js'])
+    @vite(['resources/js/calibration.js'])
 
     <x-notification></x-notification>
     <x-navigation-bar />
@@ -38,8 +39,6 @@
             </div>
 
             <div class="buttons">
-                <button id="btnCalibrate" class="button btnCalibrate">Calibrate</button>
-
                 <button id="btnClear" class="button btnClear">Clear</button>
 
                 <button id="btnSubmit" class="button btnSubmit">Add to queue</button>
