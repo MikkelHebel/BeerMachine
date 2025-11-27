@@ -80,12 +80,12 @@ class ApiController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-                'Barley' => 33200,
-                'Hops' => 32000,
-                'Malt' => 23750,
-                'Wheat' => 30000,
-                'Yeast' => 20000,
-                'FillingInventory' => false,
+                'barley' => 33200,
+                'hops' => 32000,
+                'malt' => 23750,
+                'wheat' => 30000,
+                'yeast' => 20000,
+                'fillingInventory' => false,
             ]);
         }
     }
