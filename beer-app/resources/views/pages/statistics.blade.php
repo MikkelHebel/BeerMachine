@@ -34,8 +34,14 @@
                 <h3>Data Plots</h3>
                 <div class="DataPlots">
                     <button id="failureBySpeed" class="DataPlotsbuttons" type="button">Failure by speed</button>
-                    <button class="DataPlotsbuttons" type="button" onclick="">Ingredients</button>
+                    <button id="minmaxcmp" class="DataPlotsbuttons" type="button">Linear Regression</button>
                 </div>
+            </div>
+
+            <div class="LinearPrediction">
+                <label for="InputPrediction">Estimate failure rate from given speed</label>
+                <input id="InputPrediction" type="number">
+                <div id="result"></div>
             </div>
         </div>
 

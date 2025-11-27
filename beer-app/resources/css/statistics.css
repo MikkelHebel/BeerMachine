@@ -7,11 +7,11 @@
 }
 
 .leftside {
-    width: 30%;
+    width: 45%;
 }
 
 .rightside {
-    width: 60%;
+    width: 50%;
 }
 
 .beerTypeRadio {
@@ -102,4 +102,11 @@
     height: 100% !important;
 }
 
+.LinearPrediction label,
+.LinearPrediction input {
+    display: block;
+}
 
+.LinearPrediction input {
+    margin-top: .3rem;
+}
