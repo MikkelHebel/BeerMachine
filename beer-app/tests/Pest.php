@@ -30,6 +30,20 @@ expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
 
+expect()->extend('toBeApproximately', function (float $expected, float $tolerance = 0.0001) {
+    $actual = $this->value;
+
+    if (!is_numeric($actual)) {
+        throw new Exception("Actual value is not numeric.");
+    }
+
+    if (abs($actual - $expected) > $tolerance) {
+        throw new Exception("Expected {$actual} to be approximately {$expected} ± {$tolerance}");
+    }
+
+    return $this; 
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions

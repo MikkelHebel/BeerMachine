@@ -14,15 +14,24 @@
             const failed = batch.defectiveAmount;
             const produced = batch.producedAmount;
 
-            if (produced === 0) return;
+            // don't evaluate if there are less than 10 beers
+            if (produced < 10) return;
 
             const currentFailureRate = failed / produced;
 
-            const expectedFailureRate = 0.05;
+            const failureRateRes = await fetch(`/api/expected-failure-rate?speed=${batch.speed}`);
+            const failureRateJson = await failureRateRes.json();
 
-            if (currentFailureRate > expectedFailureRate) {
+            const expectedFailureRate = failureRateJson.expectedFailureRate;
+
+            if (expectedFailureRate === null || expectedFailureRate === undefined) return;
+
+            const threshold = expectedFailureRate * 1.10;
+
+            if (currentFailureRate > threshold) {
                 notify("Failure rate is out of bounds. Machine may need calibration!");
             }
+
         } catch (err) {
             console.error("Calibration error:", err);
         }

@@ -18,9 +18,16 @@ class BatchFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all();
-        $types = Type::all();
-        $type = $types->random();
+        if (!User::exists()) {
+            User::factory()->create();
+        }
+
+        if (!Type::exists()) {
+            Type::factory()->create();
+        }
+
+        $type = Type::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
 
         $amount = fake()->numberBetween(100, 500);
         $speed = fake()->numberBetween(10, $type->upper_speed_limit);
@@ -42,7 +49,7 @@ class BatchFactory extends Factory
         $started_at = fake()->dateTime();
 
         return [
-            'user_id' => fake()->numberBetween(1, count($users)), // id is not 0 indexed
+            'user_id' => $user->id,
             'type_id' => $type->id,
             'amount' => $amount,
             'speed' => $speed,
