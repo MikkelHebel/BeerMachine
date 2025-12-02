@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function fetchQueueData() {
-    const response = await fetch("http://localhost:8000/api/status/queue");
+    const response = await fetch("/api/status/queue");
     return await response.json();
 }
 
