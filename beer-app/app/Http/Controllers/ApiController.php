@@ -32,7 +32,7 @@ class ApiController extends Controller
         }
     }
 
-    /*public function MachineStatus(Request $request)
+    public function MachineStatus(Request $request)
     {
         try {
             return $this->HttpGetStatus("machine");
@@ -46,18 +46,18 @@ class ApiController extends Controller
                 'Vibration' => 3,
                 'Humidity' => 10,
                 'StopReason' => 0,
+                'state' => 2,
             ]);
         }
-    }*/
+    }
 
-    public function MachineStatus(Request $request)
+    /*public function MachineStatus(Request $request)
     {
         try {
             $res = $this->HttpGetStatus("machine");
             $json = $res->getData(true);
 
             $machine = $json[0] ?? [];
-
 
             return response()->json([
                 'state' => $machine['stateCurrent'] ?? null,
@@ -70,7 +70,7 @@ class ApiController extends Controller
                 'state' => 2, // fallback to stopped state (2)
             ]);
         }
-    }
+    }*/
 
     public function InventoryStatus(Request $request)
     {
@@ -146,49 +146,6 @@ class ApiController extends Controller
             return back()->with('notify', 'Failed to send command: ' . $e->getMessage());
         }
     }
-
-    /*public function SendCommand(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'type' => 'required|string|max:255',
-
-                'parameters' => 'required_if:type,batch|array',
-
-                'parameters.amount' => 'required_if:type,batch|integer|min:1',
-                'parameters.speed' => 'required_if:type,batch|integer|min:1',
-                'parameters.beer_type_id' => 'required_if:type,batch|integer|exists:types,id',
-                'parameters.user' => 'required_if:type,batch|integer|exists:users,id',
-            ]);
-
-            $commandData = [
-                'Type' => $validated['type'],
-                'Parameters' => $validated['parameters'] ?? [],
-            ];
-
-            try {
-                $this->HttpPostCommand($commandData);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Mocked: command accepted (API unreachable)',
-                ], 200);
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Command sent successfully!',
-            ], 200);
-
-        } catch (ValidationException $e) {
-            return response()->json([
-                'error' => true,
-                'message' => 'batch validation failed',
-                'details' => $e->errors(),
-            ], 422);
-        }
-    }*/
-
 
     private function HttpPostCommand(array $data)
     {

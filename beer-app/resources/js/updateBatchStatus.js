@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadBatchData();
-    setInterval(loadBatchData, 5000);
+    setInterval(loadBatchData, 1000);
 });
 
 async function FetchBatchStatus() {
