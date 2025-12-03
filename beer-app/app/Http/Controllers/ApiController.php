@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class ApiController extends Controller
 {
-    public function BatchStatus(Request $request)
+    public function BatchStatus()
     {
         try {
             return $this->HttpGetStatus("batch");
@@ -32,7 +32,7 @@ class ApiController extends Controller
         }
     }
 
-    public function MachineStatus(Request $request)
+    public function MachineStatus()
     {
         try {
             return $this->HttpGetStatus("machine");
@@ -51,28 +51,22 @@ class ApiController extends Controller
         }
     }
 
-    /*public function MachineStatus(Request $request)
+    public function MaintenanceStatus()
     {
         try {
-            $res = $this->HttpGetStatus("machine");
-            $json = $res->getData(true);
-
-            $machine = $json[0] ?? [];
-
-            return response()->json([
-                'state' => $machine['stateCurrent'] ?? null,
-                'data' => $machine
-            ]);
+            return $this->HttpGetStatus("Maintenance");
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-                'state' => 2, // fallback to stopped state (2)
+                'MaintenanceCount' => 12345,
+                'MaintenanceTrigger' => 30000,
+                'MaintenanceState' => false
             ]);
         }
-    }*/
+    }
 
-    public function InventoryStatus(Request $request)
+    public function InventoryStatus()
     {
         try {
             return $this->HttpGetStatus("inventory");
@@ -90,7 +84,7 @@ class ApiController extends Controller
         }
     }
 
-    public function QueueStatus(Request $request)
+    public function QueueStatus()
     {
         try {
             return $this->HttpGetStatus("queue");
@@ -104,7 +98,7 @@ class ApiController extends Controller
 
     private function HttpGetStatus(string $status)
     {
-        $beerMachineApiBaseUrl = config('app.beermachine_api');
+        $beerMachineApiBaseUrl = config('app.beermachine_api'); // get the base url to the api from the config file
         $endPoint = "/status/$status";
 
         $response = Http::timeout(5)->get("{$beerMachineApiBaseUrl}{$endPoint}");

@@ -5,10 +5,13 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\FlashController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::post('/notify', [FlashController::class, 'Notify'])->name('notify'); // make a post request to this to flash a message to the session "notify"
 
 Route::middleware('auth')->controller(PageController::class)->group(function() {
     Route::get('/', 'home')->name('home');

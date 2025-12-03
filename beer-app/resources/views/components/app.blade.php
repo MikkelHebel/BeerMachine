@@ -6,6 +6,7 @@
     <title>Beer Machine</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    @csrf
     <link rel="icon" type="image/x-icon" href="{{ asset('nedenunder-favicon.ico') }}">
 </head>
 <body>
