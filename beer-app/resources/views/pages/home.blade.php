@@ -12,7 +12,7 @@
     <div class="contents">
         <div class="card">
             <h2>
-                Batch ID <div class="batch-id" id="batch-id">base</div>
+                Batch ID <div class="batch-id" id="batch-id">N/D</div>
             </h2>
             <div class="beer-icon"></div>
             <p>Type</p>
@@ -30,11 +30,11 @@
             <div class="value-box" id="ratio"></div>
         </div>
 
-        <div class="queue" name="queue" id="queue">
+        <div class="queue">
             <h3>Queue</h3>
-            <div class="queue-item">Batch: base</div>
-            <div class="queue-item">Batch: base</div>
-            <div class="queue-item">Batch: base</div>
+            <div name="queue" id="queue">
+            </div>
         </div>
+
     </div>
 </x-app>

@@ -16,7 +16,8 @@ export default defineConfig({
                 'resources/js/updateBatchStatus.js',
                 'resources/js/updateQueueStatus.js',
                 'resources/js/production.js',
-                'resources/css/production.css'
+                'resources/css/production.css',
+                'resources/js/calibration.js'
             ],
             refresh: true,
         }),
