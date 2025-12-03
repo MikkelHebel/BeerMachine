@@ -17,18 +17,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadInventoryData();
-    setInterval(loadInventoryData, 5000);
+    setInterval(loadInventoryData, 1000);
 });
 
 async function FetchInventoryStatus() {
-    const response = await fetch("http://localhost:8000/api/status/inventory");
+    const response = await fetch("api/status/inventory");
     return await response.json();
 }
 
-function updateInventoryBar(ingredientId, percentage) {
+function updateInventoryBar(ingredientId, amount) {
     const container = document.getElementById(ingredientId);
     const bar = container.querySelector('#bar');
-    bar.style.height = `${Math.min(100, Math.max(0, percentage))}%`;
+    const amountText = document.getElementById(`${ingredientId}-amount`);
+    
+    // Update bar height
+    const clampedPercentage = Math.min(100, Math.max(0, amount));
+    bar.style.height = `${clampedPercentage}%`;
+    
+    // Update amount text
+    amountText.textContent = `${amount}`;
 }
 
 /*  "barley": 0,

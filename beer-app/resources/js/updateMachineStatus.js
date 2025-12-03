@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const idDiv = document.getElementById("batch-id");
     
-
     async function loadMachineData(){
         const machineData = await FetchMachineStatus();
         console.log(machineData);
@@ -9,20 +7,48 @@ document.addEventListener("DOMContentLoaded", () => {
             UpdateUI(machineData)
     }
 
-    // Check if there is an error and display the mock object
+    // Update the machine status display
     function UpdateUI(machineStatus) {        
-        idDiv.textContent = machineStatus
-        sizeDiv.textContent = machineStatus.toProduceAmount;
-        completedDiv.textContent = machineStatus.producedAmount;
-        failedDiv.textContent = machineStatus.defectiveAmount;
-        ratioDiv.textContent = 0;
-    }
+        const tempElement = document.getElementById("temperature-h2");
+        if (tempElement) {
+            tempElement.textContent = `${machineStatus.temperature.toFixed(1)}°C`;
+        }
+        const vibrationElement = document.getElementById("vibration-h2");
+        if (vibrationElement) {
+            vibrationElement.textContent = `${machineStatus.vibration.toFixed(3)}`;
+        }
+        const humidityElement = document.getElementById("humidity-h2");
+        if (humidityElement) {
+            humidityElement.textContent = `${machineStatus.humidity.toFixed(1)}%`;
+        }
 
+    }
+    
     loadMachineData();
-    setInterval(loadMachineData, 5000);
+    setInterval(loadMachineData, 1000);
 });
 
 async function FetchMachineStatus() {
-    const response = await fetch("http://localhost:8000/api/status/machine");
-    return await response.json();
+    try {
+        const response = await fetch("api/status/machine");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching machine status:', error);
+        return null;
+    }
 }
+
+/* response example
+{
+  "speed": 33.333332,
+  "ctrlcmd": 0,
+  "temperature": 0,
+  "vibration": 0,
+  "humidity": 0,
+  "stopReason": 0,
+  "stateCurrent": 16
+}
+*/
