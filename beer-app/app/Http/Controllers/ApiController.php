@@ -40,12 +40,12 @@ class ApiController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-                'Speed' => 450,
-                'Ctrlcmd' => 0,
-                'Temperature' => 31,
-                'Vibration' => 3,
-                'Humidity' => 10,
-                'StopReason' => 0,
+                'speed' => 450,
+                'ctrlcmd' => 0,
+                'temperature' => 31,
+                'vibration' => 3,
+                'humidity' => 10,
+                'stopReason' => 0,
                 'state' => 2,
             ]);
         }

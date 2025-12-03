@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\FlashController;
+use App\Http\Controllers\BatchController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -13,7 +14,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/notify', [FlashController::class, 'Notify'])->name('notify'); // make a post request to this to flash a message to the session "notify"
 
-Route::middleware('auth')->controller(PageController::class)->group(function() {
+Route::get('/total-brewed', [BatchController::class, 'totalBrewed']);
+Route::get('/total-failed', [BatchController::class, 'totalFailed']);
+Route::get('/total-ratio', [BatchController::class, 'totalRatio']);
+
+Route::middleware('auth')->controller(PageController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/production', 'production')->name('production');
     Route::get('/status', 'status')->name('status');
@@ -21,7 +26,7 @@ Route::middleware('auth')->controller(PageController::class)->group(function() {
     Route::get('/settings', 'settings')->name('settings');
 });
 
-Route::middleware(['auth', 'admin'])->group(function() {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [PageController::class, 'admin'])->name('admin');
 
     Route::get('/users/create', [UserController::class, 'create'])->name('user.create');

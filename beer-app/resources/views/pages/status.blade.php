@@ -1,8 +1,10 @@
 <x-app>
     @vite([
-        'resources/css/status.css', 
-        'resources/js/updateInventoryAmount.js',
-        'resources/js/updateMachineStatus.js',])
+    'resources/css/status.css',
+    'resources/js/updateInventoryAmount.js',
+    'resources/js/updateMachineStatus.js',
+    'resources/js/updateBrewTotal.js'
+    ])
     <x-notification></x-notification>
     <x-navigation-bar></x-navigation-bar>
     <div class="container">
