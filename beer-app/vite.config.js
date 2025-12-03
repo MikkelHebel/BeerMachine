@@ -11,10 +11,13 @@ export default defineConfig({
                 'resources/css/home.css',
                 'resources/css/login.css',
                 'resources/js/app.js',
+                'resources/js/statistics.js',
+                'resources/css/statistics.css',
                 'resources/js/updateBatchStatus.js',
                 'resources/js/updateQueueStatus.js',
                 'resources/js/production.js',
-                'resources/css/production.css'
+                'resources/css/production.css',
+                'resources/js/calibration.js'
             ],
             refresh: true,
         }),

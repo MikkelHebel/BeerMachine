@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadBatchData();
-    setInterval(loadBatchData, 5000);
+    setInterval(loadBatchData, 1000);
 });
 
 async function FetchBatchStatus() {
-    const response = await fetch("http://localhost:8000/api/status/batch");
+    const response = await fetch("/api/status/batch");
     return await response.json();
 }
 /* 
