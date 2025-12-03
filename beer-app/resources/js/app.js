@@ -6,9 +6,33 @@ async function updateMaintenanceState() {
     const response = await fetchMaintenanceStatus(); 
     
     if (response && response.MaintenanceState == true) {
-        await flashToSession('System is under maintenance!');
-        window.location.reload(); // reload page
+        showMaintenanceNotification('System is under maintenance!');
+    } else {
+        // Remove notification if maintenance is over
+        const existing = document.getElementById('maintenance-notification');
+        if (existing) {
+            existing.remove();
+        }
     }
+}
+
+function showMaintenanceNotification(message) {
+    // remove existing notification if present
+    const existing = document.getElementById('maintenance-notification');
+    if (existing) {
+        existing.remove();
+    }
+    
+    const notification = document.createElement('div');
+    notification.id = 'maintenance-notification';
+    notification.className = 'p-4 text-center bg-orange-500 text-white font-bold text-xl';
+    notification.textContent = message;
+    notification.style.position = 'fixed';
+    notification.style.top = '0';
+    notification.style.width = '100%';
+    notification.style.zIndex = '9999';
+    
+    document.body.insertBefore(notification, document.body.firstChild);
 }
 
 async function fetchMaintenanceStatus() {

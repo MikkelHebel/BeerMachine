@@ -61,7 +61,7 @@ class ApiController extends Controller
                 'message' => $e->getMessage(),
                 'MaintenanceCount' => 12345,
                 'MaintenanceTrigger' => 30000,
-                'MaintenanceState' => false
+                'MaintenanceState' => true
             ]);
         }
     }

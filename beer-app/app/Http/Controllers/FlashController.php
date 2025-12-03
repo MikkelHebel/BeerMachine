@@ -12,6 +12,8 @@ class FlashController extends Controller
             'message' => 'required|string'
         ]);
 
+        //session('notify', $validated['message']);
+
         session()->flash('notify', $validated['message']);
 
         return response()->json(['success' => true]);
