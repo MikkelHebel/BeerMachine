@@ -1,0 +1,76 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.upper-div {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.lower-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.machine-status div div {
+    padding-right: 25px;
+}
+
+.inventory-div {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end; /* Align containers at bottom */
+}
+
+/* Container for each inventory item (h2 + bar) */
+.inventory-div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style the h2 titles */
+.inventory-div h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Container for the vertical bar */
+.inventory-bar {
+    position: relative;
+    width: 80px;
+    height: 200px;
+    background-color: #ddd;
+    border: 2px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* The filling bar inside */
+.inventory-bar #bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%; /* filled amount*/
+    background: linear-gradient(to top, #4CAF50, #8BC34A);
+    transition: height 0.5s ease;
+}
+
+/* Style the amount text */
+.inventory-amount {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: normal;
+    color: #666;
+    text-align: center;
+}
