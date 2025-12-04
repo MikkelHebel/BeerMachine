@@ -15,9 +15,15 @@ export default defineConfig({
                 'resources/css/statistics.css',
                 'resources/js/updateBatchStatus.js',
                 'resources/js/updateQueueStatus.js',
+                
                 'resources/js/production.js',
                 'resources/css/production.css',
-                'resources/js/calibration.js'
+                'resources/js/calibration.js',
+
+                'resources/css/status.css',
+                'resources/js/updateInventoryAmount.js',
+                'resources/js/updateMachineStatus.js',
+                'resources/js/updateBrewTotal.js'
             ],
             refresh: true,
         }),
