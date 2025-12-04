@@ -6,7 +6,7 @@
             <h1 class="box-title">Nedenunder</h1>
             <form action="{{ route('login') }}" method="POST" class="login-form">
                 @csrf
-                <label for="email" class="input-label">Username</label>
+                <label for="email" class="input-label">Email</label>
                 <input type="email" name="email" required value="{{ old('email') }}" class="input-field" />
 
                 <label for="password" class="input-label">Password</label>

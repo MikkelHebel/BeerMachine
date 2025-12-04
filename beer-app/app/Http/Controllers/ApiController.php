@@ -32,7 +32,7 @@ class ApiController extends Controller
         }
     }
 
-    /*public function MachineStatus(Request $request)
+    public function MachineStatus(Request $request)
     {
         try {
             return $this->HttpGetStatus("machine");
@@ -46,18 +46,18 @@ class ApiController extends Controller
                 'Vibration' => 3,
                 'Humidity' => 10,
                 'StopReason' => 0,
+                'state' => 2,
             ]);
         }
-    }*/
+    }
 
-    public function MachineStatus(Request $request)
+    /*public function MachineStatus(Request $request)
     {
         try {
             $res = $this->HttpGetStatus("machine");
             $json = $res->getData(true);
 
             $machine = $json[0] ?? [];
-
 
             return response()->json([
                 'state' => $machine['stateCurrent'] ?? null,
@@ -70,7 +70,7 @@ class ApiController extends Controller
                 'state' => 2, // fallback to stopped state (2)
             ]);
         }
-    }
+    }*/
 
     public function InventoryStatus(Request $request)
     {
