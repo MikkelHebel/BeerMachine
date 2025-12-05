@@ -41,7 +41,7 @@ class AuthController extends Controller
         return redirect()->route('show.login');
     }
 
-    public function validate(Request $request) {
+    /*public function validate(Request $request) {
         $validate = $request->validate([
             'Barley' => 'required|float|min:10',
             'Hops' => 'required|float|min:10',
@@ -54,5 +54,5 @@ class AuthController extends Controller
             $currentRoute = Route::getCurrentRoute()->getName();
             return redirect()->route($currentRoute)->with('refill', 'Please refill missing ingredients to continue production.');
         }
-    }
+    }*/
 }

@@ -45,7 +45,7 @@ class ApiController extends Controller
                 'temperature' => 31,
                 'vibration' => 3,
                 'humidity' => 10,
-                'stopReason' => 0,
+                'stopReason' => 0, //'stopReason' => 10 -> For testing refill message
                 'state' => 2,
             ]);
         }
@@ -79,7 +79,7 @@ class ApiController extends Controller
                 'malt' => 23750,
                 'wheat' => 30000,
                 'yeast' => 20000,
-                'fillingInventory' => false,
+                'fillingInventory' => false, // Set true to test refill message
             ]);
         }
     }
