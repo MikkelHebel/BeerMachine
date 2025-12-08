@@ -9,11 +9,64 @@
         const inputQuantity = form.querySelectorAll('input')[2]; 
         const inputUser = form.querySelectorAll('input')[3]; 
 
+        const beerTypes = window.beerTypes;
+
+        const recommended = {
+            1: 450,
+            2: 152,
+            3: 94,
+            4: 100,
+            5: 83,
+            6: 91
+        };
+
+        const hintMax = document.getElementById('hintMax');
+        const hintRec = document.getElementById('hintRec');
+
         // Notify function (placeholder for the notification from Tobias)
         function notify(msg) {
             alert(msg);
             console.log(msg);
         }
+
+        selectBeer.addEventListener('change', () => {
+            const selectedId = parseInt(selectBeer.value);
+            const selectedType = beerTypes.find(t => t.id === selectedId);
+
+            if (!selectedType) {
+                hintMax.textContent = "*Max speed is 0.";
+                hintRec.textContent = "*Recommended speed is 0.";
+                inputSpeed.value = ""; 
+                return;
+            }
+
+            const max = selectedType.upper_speed_limit;
+            const rec = recommended[selectedId] ?? 0;
+
+            hintMax.textContent = `*Max speed is ${max}.`;
+            hintRec.textContent = `*Recommended speed is ${rec}.`;
+
+            inputSpeed.value = rec;
+        });
+
+        inputSpeed.addEventListener('input', () => {
+            const selectedId = parseInt(selectBeer.value);
+            const selectedType = beerTypes.find(t => t.id === selectedId);
+
+            const max = selectedType ? selectedType.upper_speed_limit : 0;
+
+            let value = parseInt(inputSpeed.value);
+
+            if (isNaN(value)) {
+                inputSpeed.value = "";
+                return;
+            }
+
+            if (value > max) value = max;
+            if (value < 0) value = 0;
+
+            inputSpeed.value = value;
+        });
 
         btnSubmit.addEventListener('click', async (e) => {
             console.log("Submit clicked")
