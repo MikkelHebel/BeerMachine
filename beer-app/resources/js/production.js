@@ -1,7 +1,6 @@
 (function () {
         const form = document.getElementById('production-form');
-        const csrf = form.querySelector('input[name="_token"]').value;
-        const btnSubmit = document.getElementById('btnSubmit');
+        const btnQueue = document.getElementById('btnQueue');
         
 
         const selectBeer = form.querySelector('select');
@@ -9,15 +8,62 @@
         const inputQuantity = form.querySelectorAll('input')[2]; 
         const inputUser = form.querySelectorAll('input')[3]; 
 
-        // Notify function (placeholder for the notification from Tobias)
-        function notify(msg) {
-            alert(msg);
-            console.log(msg);
-        }
+        let isBatchActive = false;
 
-        btnSubmit.addEventListener('click', async (e) => {
-            console.log("Submit clicked")
+        const beerTypes = window.beerTypes;
 
+        const recommended = {
+            1: 450,
+            2: 152,
+            3: 94,
+            4: 100,
+            5: 83,
+            6: 91
+        };
+
+        const hintMax = document.getElementById('hintMax');
+        const hintRec = document.getElementById('hintRec');
+
+        selectBeer.addEventListener('change', () => {
+            const selectedId = parseInt(selectBeer.value);
+            const selectedType = beerTypes.find(t => t.id === selectedId);
+
+            if (!selectedType) {
+                hintMax.textContent = "*Max speed is 0.";
+                hintRec.textContent = "*Recommended speed is 0.";
+                inputSpeed.value = ""; 
+                return;
+            }
+
+            const max = selectedType.upper_speed_limit;
+            const rec = recommended[selectedId] ?? 0;
+
+            hintMax.textContent = `*Max speed is ${max}.`;
+            hintRec.textContent = `*Recommended speed is ${rec}.`;
+
+            inputSpeed.value = rec;
+        });
+
+        inputSpeed.addEventListener('input', () => {
+            const selectedId = parseInt(selectBeer.value);
+            const selectedType = beerTypes.find(t => t.id === selectedId);
+
+            const max = selectedType ? selectedType.upper_speed_limit : 0;
+
+            let value = parseInt(inputSpeed.value);
+
+            if (isNaN(value)) {
+                inputSpeed.value = "";
+                return;
+            }
+
+            if (value > max) value = max;
+            if (value < 0) value = 0;
+
+            inputSpeed.value = value;
+        });
+
+        btnQueue.addEventListener('click', (e) => {
             e.preventDefault();
 
             const beerTypeId = parseInt(selectBeer.value);
@@ -26,63 +72,89 @@
             const userId = parseInt(inputUser.value);
 
             if (!beerTypeId || isNaN(speed) || isNaN(quantity)) {
-                notify('Fill all fields!');
+                window.toast('Fill all fields!');
                 return;
             }
 
-            if (beerTypeId > 6 || beerTypeId < 1) {
-                notify('beer type error');
-                return;
-            }
-            
-            try {
-                const batchCommand = {
-                    type: "batch",
-                    parameters: {
-                        amount: quantity,
-                        speed: speed,
-                        type: beerTypeId,
-                        user: userId
-                    }
-                };
+            document.getElementById('paramAmount').value = quantity;
+            document.getElementById('paramSpeed').value = speed;
+            document.getElementById('paramType').value = beerTypeId;
+            document.getElementById('paramUser').value = userId;
 
-                // queue batch
-                const response = await fetch("/api/command", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": csrf },
-                    body: JSON.stringify(batchCommand)
-                });
+            form.submit();
 
-                notify("Batch queued!");
-                console.log(response);
-
-            } catch (err) {
-                notify("Error: " + err.message);
-                console.error(err);
-            }
+            clear();
+            window.toast("Batch queued!");
         });
 
-    form.addEventListener('submit', (e) => e.preventDefault());
+        const btnClear = document.getElementById('btnClear');
 
-    async function updateProgress() {
-    try {
-        const res = await fetch("/api/status/batch");
-        const json = await res.json();
+        btnClear.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        const batch = Array.isArray(json) ? json[0] : json;
+            clear();
+        });
 
-        if (!batch || !batch.toProduceAmount || !batch.producedAmount) return;
+        const btnStart = document.getElementById('btnStart');
 
-        const progress = Math.floor((batch.producedAmount / batch.toProduceAmount) * 100);
+        btnStart.addEventListener('click', async (e) => {
+            e.preventDefault();
 
-        const bar = document.querySelector(".progress-bar");
-        bar.style.width = progress + "%";
-        bar.textContent = progress + " %";
+            if (isBatchActive) {
+                window.toast("A batch is already running. Please wait for it to finish.");
+                return;
+            }
 
-    } catch (err) {
-        console.error("Progress error:", err);
+            try {
+                const res = await fetch("/api/status/queue");
+                const queue = await res.json();
+
+                const hasQueuedBatches = Array.isArray(queue) && queue.length > 0;
+
+                if (!hasQueuedBatches) {
+                    window.toast("No batches in queue. Please add one first.");
+                    return;
+                }
+
+            } catch (err) {
+                window.toast("Unable to check queue status. Try again.");
+                return;
+            }
+
+            window.toast("Batch started");
+        });
+
+        function clear() {
+            selectBeer.selectedIndex = 0;
+
+            inputSpeed.value = "";
+            inputQuantity.value = "";
+
+            hintMax.textContent = "*Max speed is 0.";
+            hintRec.textContent = "*Recommended speed is 0.";
+        }
+
+        async function updateProgress() {
+        try {
+            const res = await fetch("/api/status/batch");
+            const json = await res.json();
+
+            const batch = Array.isArray(json) ? json[0] : json;
+
+            if (!batch || !batch.toProduceAmount || !batch.producedAmount) return;
+
+            isBatchActive = batch && batch.producedAmount < batch.toProduceAmount;
+
+            const progress = Math.floor((batch.producedAmount / batch.toProduceAmount) * 100);
+
+            const bar = document.querySelector(".progress-bar");
+            bar.style.width = progress + "%";
+            bar.textContent = progress + " %";
+
+        } catch (err) {
+            console.error("Progress error:", err);
+        }
     }
-}
 
-setInterval(updateProgress, 1000);
+    setInterval(updateProgress, 1000);
 })();

@@ -17,19 +17,41 @@
 
         <p>Logged in as {{ auth()->user()->name }}</p>
 
-        <a href="{{ route('settings') }}">
-            <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon">
-        </a>
+            <div class="dropdown-wrapper">
+                <img src="{{ asset('images/settings.png') }}" alt="Settings Icon" class="settings-icon" id="settingsToggle">
 
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn">Logout</button>
-        </form>
+                <div class="dropdown-menu" id="settingsMenu">
+                    <a href="{{ route('settings') }}" class="dropdown-item">Settings</a>
+
+                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item-form">
+                        @csrf
+                        <button type="submit" class="dropdown-item-btn">Logout</button>
+                    </form>
+                </div>
+            </div>
 
         <form action="{{ route('send.command') }}" method="POST">
             @csrf
             <input type="hidden" name="type" value="abort">
             <button type="submit" class="abort-btn">ABORT</button>
         </form>
-    </div>
+    </div>  
 </nav>
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const settingsToggle = document.getElementById("settingsToggle");
+            const settingsMenu = document.getElementById("settingsMenu");
+
+            settingsToggle.addEventListener("click", () => {
+                settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", (e) => {
+                if (!settingsToggle.contains(e.target) && !settingsMenu.contains(e.target)) {
+                    settingsMenu.style.display = "none";
+                }
+            });
+        });
+
+    </script>

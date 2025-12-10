@@ -19,6 +19,8 @@ export default defineConfig({
                 'resources/js/production.js',
                 'resources/css/production.css',
                 'resources/js/calibration.js',
+                'resources/css/notification-bar.css',
+                'resources/js/notification-bar.js',
 
                 'resources/css/status.css',
                 'resources/js/updateInventoryAmount.js',
