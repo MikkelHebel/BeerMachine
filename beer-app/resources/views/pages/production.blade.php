@@ -68,10 +68,19 @@
 
             <div class="production-right">
 
-                <form action="{{ route('send.command') }}" method="POST">
+            <p id="queue-status" class="queue-status-message" style="
+                font-size: 0.9rem;
+                color: #b91c1c;
+                font-style: italic;
+                margin-bottom: 0.5rem;
+            ">
+                No batch queued! Add one before starting.
+            </p>
+
+                <form action="{{ route('send.command') }}" method="POST" id="start-form">
                     @csrf
                     <input type="hidden" name="type" value="start">
-                    <button id="btnStart" type="submit" class="button btnStart full-btn">Start</button>
+                    <button id="btnStart" type="submit" class="button btnStart full-btn" disabled>Start</button>
                 </form>
 
                 <form action="{{ route('send.command') }}" method="POST">
