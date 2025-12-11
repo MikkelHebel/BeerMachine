@@ -99,6 +99,8 @@
 
         btnStart.addEventListener('click', async (e) => {
             e.preventDefault();
+            const form = document.getElementById('start-form');
+
 
             if (isBatchActive) {
                 window.toast("A batch is already running. Please wait for it to finish.");
@@ -121,6 +123,8 @@
                 return;
             }
 
+            btnStart.closest('form').submit();
+
             window.toast("Batch started");
         });
 
@@ -135,26 +139,53 @@
         }
 
         async function updateProgress() {
-        try {
-            const res = await fetch("/api/status/batch");
-            const json = await res.json();
+            try {
+                const res = await fetch("/api/status/batch");
+                const json = await res.json();
 
-            const batch = Array.isArray(json) ? json[0] : json;
+                const batch = Array.isArray(json) ? json[0] : json;
 
-            if (!batch || !batch.toProduceAmount || !batch.producedAmount) return;
+                if (!batch || !batch.toProduceAmount || !batch.producedAmount) return;
 
-            isBatchActive = batch && batch.producedAmount < batch.toProduceAmount;
+                isBatchActive = batch && batch.producedAmount < batch.toProduceAmount;
 
-            const progress = Math.floor((batch.producedAmount / batch.toProduceAmount) * 100);
+                const progress = Math.floor((batch.producedAmount / batch.toProduceAmount) * 100);
 
-            const bar = document.querySelector(".progress-bar");
-            bar.style.width = progress + "%";
-            bar.textContent = progress + " %";
+                const bar = document.querySelector(".progress-bar");
+                bar.style.width = progress + "%";
+                bar.textContent = progress + " %";
 
-        } catch (err) {
-            console.error("Progress error:", err);
+            } catch (err) {
+                console.error("Progress error:", err);
+            }
         }
-    }
 
+        async function checkQueue() {
+            try {
+                const res = await fetch("/api/status/queue");
+                const queue = await res.json();
+
+                const btn = document.getElementById('btnStart');
+                const msg = document.getElementById('queue-status');
+
+                const hasQueuedBatches = Array.isArray(queue) && queue.length > 0;
+
+                if (hasQueuedBatches) {
+                    btn.disabled = false;
+                    msg.textContent = "✓ Batch queued — ready to start";
+                    msg.style.color = "#15803d";
+                } else {
+                    btn.disabled = true;
+                    msg.textContent = "No batch queued — add one before starting";
+                    msg.style.color = "#b91c1c";
+                }
+
+            } catch (error) {
+                console.error("Queue check failed:", error);
+            }
+        }
+
+    
+    setInterval(checkQueue, 1500);
     setInterval(updateProgress, 1000);
 })();
