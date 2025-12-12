@@ -1,7 +1,13 @@
-@if ( session('notify') )
-    <div id="notify" class="p-4 text-center bg-red-500 text-white-50 font-bold">
-        {{ session('notify') }}
-    </div>
+<div id="toast-container"></div>
+
+@vite(['resources/css/notification-bar.css', 'resources/js/notification-bar.js'])
+
+@if(session('notify'))
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            window.toast(@json(session('notify')));
+        });
+    </script>
 @endif
 
 {{--@if (session('refill'))
