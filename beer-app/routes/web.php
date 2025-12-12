@@ -13,6 +13,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/notify', [FlashController::class, 'Notify'])->name('notify'); // make a post request to this to flash a message to the session "notify"
+//Route::post('/refill', [AuthController::class, 'refillInventory'])->name('refill');
 
 Route::get('/total-brewed', [BatchController::class, 'totalBrewed']);
 Route::get('/total-failed', [BatchController::class, 'totalFailed']);
