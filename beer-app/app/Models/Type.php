@@ -15,7 +15,7 @@ class Type extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'lower_speed_limit', 'upper_speed_limit'];
+    protected $fillable = ['name', 'mapped_type_id', 'lower_speed_limit', 'upper_speed_limit'];
     public $timestamps = false; // the beer types doesnt need timestamps
 
     public function batches()
