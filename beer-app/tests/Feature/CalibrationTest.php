@@ -1,9 +1,15 @@
 <?php
 
+use App\Models\User;
 use App\Models\Batch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
+
+beforeEach(function () {
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user);
+});
 
 test('return null if fewer than three batches exist for the given speed', function () {
     Batch::factory()->count(2)->create([
