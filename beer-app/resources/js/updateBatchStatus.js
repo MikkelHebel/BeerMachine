@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         failedDiv.textContent = batchStatus.defectiveAmount;
         
         beerType.textContent = BEER_TYPES[batchStatus.beerType] || ``;
-        ratioDiv.textContent = batchStatus.defectiveAmount == 0 ? 100 + '%' : ((batchStatus.producedAmount / batchStatus.defectiveAmount)*100)+'%';
+        ratioDiv.textContent = batchStatus.defectiveAmount == 0 ? 100 + '%' : (batchStatus.defectiveAmount / batchStatus.producedAmount)*100+'%';
     }
 
     loadBatchData();
