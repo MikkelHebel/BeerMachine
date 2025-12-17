@@ -1,9 +1,19 @@
+const BEER_TYPES = {}
+window.beerTypes.forEach(type => {
+        BEER_TYPES[type.id] = type.name;
+});
+
 document.addEventListener("DOMContentLoaded", () => {
+
+
+
     const idDiv = document.getElementById("batch-id");
     const sizeDiv = document.getElementById("batch-size");
     const completedDiv = document.getElementById("amount-complete");
     const failedDiv = document.getElementById("amount-failed");
     const ratioDiv = document.getElementById("ratio");
+    const beerType = document.getElementById("beerType");
+
 
     async function loadBatchData(){
         const batchData = await FetchBatchStatus();
@@ -18,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
         sizeDiv.textContent = batchStatus.toProduceAmount;
         completedDiv.textContent = batchStatus.producedAmount;
         failedDiv.textContent = batchStatus.defectiveAmount;
-        ratioDiv.textContent = 0;
+        
+        beerType.textContent = BEER_TYPES[batchStatus.beerType] || ``;
+        ratioDiv.textContent = batchStatus.defectiveAmount == 0 ? 100 + '%' : ((batchStatus.producedAmount / batchStatus.defectiveAmount)*100)+'%';
     }
 
     loadBatchData();
