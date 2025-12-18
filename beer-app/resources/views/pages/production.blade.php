@@ -12,7 +12,7 @@
 
     <div class="production">
         <div class="production-layout">
-            
+
             <div class="production-left">
                 <form action="{{ route('send.command') }}" method="POST" class="production-form" id="production-form">
                     @csrf
@@ -20,10 +20,10 @@
                     <div class="form-top">
                         <div class="beer-type">
                             <label>Beer Type</label>
-                            <select class="input"> 
+                            <select class="input">
                                 <option disabled selected hidden>Select beer type</option>
                                 @foreach ($types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    <option value="{{ $type->mapped_type_id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -52,7 +52,7 @@
                         <input type="hidden" name="parameters[speed]" id="paramSpeed">
                         <input type="hidden" name="parameters[type]" id="paramType">
                         <input type="hidden" name="parameters[user]" id="paramUser">
-                        
+
                         <button id="btnClear" class="button btnClear">Clear</button>
                         <button id="btnQueue" class="button btnQueue">Add to queue</button>
                     </div>
@@ -68,14 +68,14 @@
 
             <div class="production-right">
 
-            <p id="queue-status" class="queue-status-message" style="
+                <p id="queue-status" class="queue-status-message" style="
                 font-size: 0.9rem;
                 color: #b91c1c;
                 font-style: italic;
                 margin-bottom: 0.5rem;
             ">
-                No batch queued! Add one before starting.
-            </p>
+                    No batch queued! Add one before starting.
+                </p>
 
                 <form action="{{ route('send.command') }}" method="POST" id="start-form">
                     @csrf

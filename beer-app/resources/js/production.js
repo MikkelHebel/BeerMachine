@@ -13,12 +13,12 @@
         const beerTypes = window.beerTypes;
 
         const recommended = {
-            1: 450,
-            2: 152,
-            3: 94,
-            4: 100,
-            5: 83,
-            6: 91
+            0: 450,
+            1: 152,
+            2: 94,
+            3: 100,
+            4: 83,
+            5: 91
         };
 
         const hintMax = document.getElementById('hintMax');
@@ -26,7 +26,9 @@
 
         selectBeer.addEventListener('change', () => {
             const selectedId = parseInt(selectBeer.value);
-            const selectedType = beerTypes.find(t => t.id === selectedId);
+            const selectedType = beerTypes.find(t => t.mapped_type_id === selectedId);
+
+            console.log(selectedId);
 
             if (!selectedType) {
                 hintMax.textContent = "*Max speed is 0.";
@@ -71,7 +73,7 @@
             const quantity = parseInt(inputQuantity.value);
             const userId = parseInt(inputUser.value);
 
-            if (!beerTypeId || isNaN(speed) || isNaN(quantity)) {
+            if (beerTypeId == null || isNaN(speed) || isNaN(quantity)) {
                 window.toast('Fill all fields!');
                 return;
             }

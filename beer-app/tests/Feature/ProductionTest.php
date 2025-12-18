@@ -8,7 +8,6 @@ uses(RefreshDatabase::class);
 
 test('authenticated user can view production page', function () {
     $user = User::factory()->create();
-    $types = Type::factory()->count(3)->create();
 
     $this->actingAs($user);
 
@@ -27,10 +26,10 @@ test('guest cannot view production page', function () {
 });
 
 test('progress endpoint returns batch status data', function () {
-$user = User::factory()->create();
-$this->actingAs($user);
+    $user = User::factory()->create();
+    $this->actingAs($user);
 
-$res = $this->getJson('/api/status/batch');
+    $res = $this->getJson('/api/status/batch');
     $res->assertStatus(200);
     $res->assertJsonStructure([
         'batchId',
@@ -42,7 +41,3 @@ $res = $this->getJson('/api/status/batch');
         'userId'
     ]);
 });
-
-
-
-

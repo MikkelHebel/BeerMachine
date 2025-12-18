@@ -57,7 +57,7 @@ async function updateRefillState() {
     } else {
         // Remove notification if refill is over
         const existing = document.getElementById('refill-notification');
-        if (existing && response.fillingInventory == true || stopReason != 10) {
+        if (existing && response.fillingInventory == true || response.stopReason != 10) {
             existing.remove();
         }
     }
@@ -94,26 +94,6 @@ async function fetchRefillStatus() {
         return await response.json();
     } catch (error) {
         console.error('Error fetching refill status:', error);
-        return null;
-    }
-}
-
-async function flashToSession(message) {
-    try {
-        const response = await fetch('/notify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                message: message
-            })
-        });
-        
-        return await response.json();
-    } catch (error) {
-        console.error('Error flashing message:', error);
         return null;
     }
 }
