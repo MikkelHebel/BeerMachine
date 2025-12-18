@@ -1,4 +1,4 @@
-import { chart } from "https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js";
+import { Chart } from 'chart.js/auto';
 
 const xValues = [];
 const yValues = [];

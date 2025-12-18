@@ -15,7 +15,11 @@
                 Batch ID <div class="batch-id" id="batch-id">N/D</div>
             </h2>
             <div class="beer-icon"></div>
-            <p>Type</p>
+            <span>
+                <p>Type</p>
+                <p id="beerType"></p>
+            </span>
+
 
             <div class="label">Batch size</div>
             <div class="value-box" id="batch-size"></div>

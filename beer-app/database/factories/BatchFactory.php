@@ -35,10 +35,10 @@ class BatchFactory extends Factory
         // give the procent of successful beer in a batch, given a speed and the type
         $reg = [
             1 => 0.9985702219 / (1 + 0.0000202342 * exp(0.023864852 * $speed)),
-            2 => 0.5,   // no data
+            2 => -0.0033 * $speed + 0.9903,
             3 => 0.9950984065 / (1 + 0.0004130302 * exp(0.0629426035 * $speed)),
             4 => 0.0000069598 * pow($speed, 2) - 0.0000541783 * $speed + 0.5130477273,
-            5 => 0.5,   // no data
+            5 => 0.9898 / (1 + 0.0018 * exp(0.0596 * $speed)),
             6 => -0.00000233318 * pow($speed, 2) - 0.0013350346 * $speed + 0.8422123946,
         ];
 

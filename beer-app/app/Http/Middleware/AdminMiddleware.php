@@ -15,9 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->user()->isAdmin()) {
+        if (!auth()->user()->isAdmin()) {
             return redirect()->route('home')->with('notify', 'Unauthorized!');
-
         }
 
         return $next($request);

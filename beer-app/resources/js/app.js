@@ -52,12 +52,12 @@ async function fetchMaintenanceStatus() {
 async function updateRefillState() {
     const response = await fetchRefillStatus(); 
     
-    if (response && response.fillingInventory == true || response && response.stopReason == 10) {
+    if (response && response.fillingInventory == false || response && response.stopReason == 10) {
         showRefillNotification('Inventory is being refilled!');
     } else {
         // Remove notification if refill is over
         const existing = document.getElementById('refill-notification');
-        if (existing && fillingInventory == false || stopReason != 10) {
+        if (existing && response.fillingInventory == true || stopReason != 10) {
             existing.remove();
         }
     }
@@ -65,10 +65,12 @@ async function updateRefillState() {
 
 function showRefillNotification(message) {
     // remove existing notification if present
+
+
     const existing = document.getElementById('refill-notification');
-    if (existing && fillingInventory == false) {
+    /*if (existing && fillingInventory == false) {
         existing.remove();
-    }
+    }*/
 
     const notification = document.createElement('div');
     notification.id = 'refill-notification';
