@@ -18,6 +18,7 @@ class TypeFactory extends Factory
     {
         return [
             'name' => 'type',
+            'mapped_type_id' => 0,
             'lower_speed_limit' => 0,
             'upper_speed_limit' => 0
         ];
