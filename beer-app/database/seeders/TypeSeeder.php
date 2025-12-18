@@ -20,14 +20,18 @@ class TypeSeeder extends Seeder
         ];
 
         // for each of the types we set the name of a type to the type
+        $i = 0;
         foreach ($types as $type) {
+
             Type::factory()->create(
                 [
                     'name' => $type[0],
+                    'mapped_type_id' => $i,
                     'lower_speed_limit' => $type[1],
                     'upper_speed_limit' => $type[2]
                 ]
             );
+            $i++;
         }
     }
 }

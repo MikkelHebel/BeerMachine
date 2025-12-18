@@ -1,6 +1,6 @@
 const BEER_TYPES = {}
 window.beerTypes.forEach(type => {
-        BEER_TYPES[type.id] = type.name;
+        BEER_TYPES[type.mapped_type_id] = type.name;
 });
 
 document.addEventListener("DOMContentLoaded", () => {
